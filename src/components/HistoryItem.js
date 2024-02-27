@@ -1,10 +1,10 @@
-import { StyleSheet, Text, View } from "react-native";
+import { View } from "react-native";
 import React from "react";
 
-const HistoryItem = () => {
+const HistoryItem = ({ _id, helper, status, user, location }) => {
   return (
     <View>
-      <View>//here component stye</View>
+      <View></View>
     </View>
   );
 };
