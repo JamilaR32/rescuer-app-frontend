@@ -6,21 +6,22 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import ROUTES from "../../navigations";
 import { TextInput } from "react-native-gesture-handler";
 import { useMutation } from "@tanstack/react-query";
 import { register } from "../../api/auth";
+import UserContext from "../../context/UserContext";
 
 const Register = () => {
   const navigation = useNavigation();
   const [userInfo, setUserInfo] = useState({});
-
+  const [user, setUser] = useContext(UserContext);
   const { mutate } = useMutation({
     mutationFn: () => register(userInfo),
     onSuccess: () => {
-      navigation.navigate(ROUTES.USER.HOME_NAVIGATION.HOME);
+      setUser(true);
     },
   });
 
