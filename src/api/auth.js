@@ -1,10 +1,13 @@
 import { instance } from ".";
+
 import { saveToken } from "./storage";
+
 
 const me = async () => {
   const { data } = await instance.get("/user/profile");
   return data;
 };
+
 
 const login = async (userInfo) => {
   const res = await instance.post("/login", userInfo);
@@ -23,3 +26,4 @@ const register = async (userInfo) => {
 };
 
 export { me, login, register };
+
