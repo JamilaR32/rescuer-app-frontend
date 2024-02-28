@@ -1,5 +1,5 @@
 import { Button, Pressable, StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import ROUTES from "../../navigations";
 import { useNavigation } from "@react-navigation/native";
 import { TextInput } from "react-native-gesture-handler";
@@ -9,7 +9,7 @@ import UserContext from "../../context/UserContext";
 
 const Login = () => {
   const navigation = useNavigation();
-  const [user, setUser] = userContext(UserContext);
+  const [user, setUser] = useContext(UserContext);
   const [userInfo, setUserInfo] = useState({});
   const { mutate } = useMutation({
     mutationKey: ["login"],

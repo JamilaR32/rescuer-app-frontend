@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import AuthNavigation from "./src/navigations/main/AuthNavigation";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import UserContext from "./src/context/UserContext";
 import UserMainNavigation from "./src/navigations/main/UserMainNavigation";
 import { getToken } from "./src/api/storage";
