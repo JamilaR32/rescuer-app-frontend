@@ -5,6 +5,11 @@ import React, { useEffect, useState } from "react";
 import UserContext from "./src/context/UserContext";
 import UserMainNavigation from "./src/navigations/main/UserMainNavigation";
 import { getToken } from "./src/api/storage";
+import History from "./src/screens/helper/History/History";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import UserProfile from "./src/screens/user/Profile/UserProfile";
+import React from "react";
+import { NativeBaseProvider, Box, Text } from "native-base";
 
 export default function App() {
   const [user, setUser] = useState(false);
@@ -27,5 +32,9 @@ export default function App() {
         {/* </NativeBaseProvider> */}
       </UserContext.Provider>
     </QueryClientProvider>
+
+    // <NavigationContainer>
+    //   <AuthNavigation />
+    // </NavigationContainer>
   );
 }
