@@ -25,7 +25,7 @@ const Mapz = () => {
 
     intervalId = setInterval(() => {
       fetchLocation(); // Fetch every second
-    }, 1);
+    }, 10000);
 
     return () => {
       clearInterval(intervalId); // Clear interval on component unmount
