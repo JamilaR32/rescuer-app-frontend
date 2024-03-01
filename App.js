@@ -1,6 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import AuthNavigation from "./src/navigations/main/AuthNavigation";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 import React, { useEffect, useState } from "react";
 import UserContext from "./src/context/UserContext";
 import UserMainNavigation from "./src/navigations/main/UserMainNavigation";
@@ -22,9 +23,10 @@ export default function App() {
     checkToken();
   }, []);
   
+
+
   return (
     <QueryClientProvider client={new QueryClient()}>
-
       <UserContext.Provider value={[user, setUser]}>
         {/* <NativeBaseProvider> */}
         <NavigationContainer>
@@ -34,13 +36,8 @@ export default function App() {
       </UserContext.Provider>
     </QueryClientProvider>
 
-     // <NativeBaseProvider>
-       // <History />
-   //   </NativeBaseProvider>
-    
     // <NavigationContainer>
     //   <AuthNavigation />
     // </NavigationContainer>
-
   );
 }
