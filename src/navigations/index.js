@@ -4,6 +4,7 @@ const ROUTES = {
       INDEX: "Auth Navigation",
       LOGIN: "Login Page",
       REGISTER: "Join Us",
+      HELPER_REGISTER: "Register as a Helper",
     },
   },
 

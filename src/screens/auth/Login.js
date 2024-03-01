@@ -18,6 +18,12 @@ const Login = () => {
       setUser(true);
     },
   });
+  const handleRegisterHelper = () => {
+    console.log("Register as a helper button pressed");
+    console.log("Navigation object:", navigation);
+    navigation.navigate(ROUTES.AUTH.AUTH_NAVIGATION.REGISTER_HELPER);
+  };
+  console.log("User info:", userInfo);
 
   return (
     <View style={styles.container}>
@@ -40,7 +46,6 @@ const Login = () => {
         </Pressable>
         <View style={styles.footer}>
           <Text>Not a user?</Text>
-
           <Pressable
             onPress={() =>
               navigation.navigate(ROUTES.AUTH.AUTH_NAVIGATION.REGISTER)
@@ -49,12 +54,23 @@ const Login = () => {
             <Text style={styles.link}>Register</Text>
           </Pressable>
         </View>
+        <View style={styles.footer}>
+          <Text>Not a helper?</Text>
+        <Pressable
+          onPress={() =>
+            navigation.navigate(ROUTES.AUTH.AUTH_NAVIGATION.REGISTER_HELPER)
+          }
+        >
+          <Text style={styles.helperLink}>Register as a helper</Text>
+        </Pressable>
+      </View>
       </View>
     </View>
   );
 };
 
 export default Login;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -86,6 +102,10 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   link: {
+    color: "#FF33CE",
+    marginLeft: 5,
+  },
+  helperLink: {
     color: "#FF33CE",
     marginLeft: 5,
   },
