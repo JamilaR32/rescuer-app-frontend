@@ -5,6 +5,7 @@ import UserContext from "./src/context/UserContext";
 import UserMainNavigation from "./src/navigations/main/UserMainNavigation";
 import { getToken } from "./src/api/storage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import UserProfile from "./src/screens/user/Profile/UserProfile";
 
 export default function App() {
   const [user, setUser] = useState(false);
@@ -22,16 +23,12 @@ export default function App() {
   return (
     <QueryClientProvider client={new QueryClient()}>
       <UserContext.Provider value={[user, setUser]}>
-        {/* <NativeBaseProvider> */}
         <NavigationContainer>
-          {user ? <UserMainNavigation /> : <AuthNavigation />}
+          {/* {user ? <UserMainNavigation /> : <AuthNavigation />} */}
+          {/* <UserProfile /> */}
+          {user ? <UserProfile /> : <AuthNavigation />}
         </NavigationContainer>
-        {/* </NativeBaseProvider> */}
       </UserContext.Provider>
     </QueryClientProvider>
-
-    // <NavigationContainer>
-    //   <AuthNavigation />
-    // </NavigationContainer>
   );
 }
