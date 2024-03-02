@@ -28,16 +28,12 @@ export default function App() {
   return (
     <QueryClientProvider client={new QueryClient()}>
       <UserContext.Provider value={[user, setUser]}>
-        {/* <NativeBaseProvider> */}
         <NavigationContainer>
-          {user ? <UserMainNavigation /> : <AuthNavigation />}
+          {/* {user ? <UserMainNavigation /> : <AuthNavigation />} */}
+          {/* <UserProfile /> */}
+          {user ? <UserProfile /> : <AuthNavigation />}
         </NavigationContainer>
-        {/* </NativeBaseProvider> */}
       </UserContext.Provider>
     </QueryClientProvider>
-
-    // <NavigationContainer>
-    //   <AuthNavigation />
-    // </NavigationContainer>
   );
 }

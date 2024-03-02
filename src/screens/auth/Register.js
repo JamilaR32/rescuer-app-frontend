@@ -22,6 +22,7 @@ const Register = () => {
     mutationFn: () => register(userInfo),
     onSuccess: () => {
       setUser(true);
+      navigation.navigate(ROUTES.USER.PROFILE_NAVIGATION.PROFILE);
     },
   });
 
@@ -103,7 +104,7 @@ const Register = () => {
       >
         <Text>Already a user?</Text>
         <TouchableOpacity
-          onPress={() => navigation.navigate(ROUTES.AUTH_NAVIGATION.LOGIN)}
+          onPress={() => navigation.navigate(ROUTES.AUTH.AUTH_NAVIGATION.LOGIN)}
         >
           <Text
             style={{

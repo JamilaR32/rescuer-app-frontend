@@ -2,7 +2,7 @@ import { instance } from ".";
 import { saveToken } from "./storage";
 
 const me = async () => {
-  const { data } = await instance.get("/user/profile");
+  const { data } = await instance.get("/profile");
   return data;
 };
 
@@ -29,4 +29,13 @@ const registerHelper = async (userInfo) => {
   return res.data;
 };
 
-export { me, login, register };
+const editUserProfile = async (userInfo) => {
+  const res = await instance.put("/profile/:userId", userInfo);
+  const token = res.data.token;
+  if (token) {
+    saveToken(token);
+  }
+  return res.data;
+};
+
+export { me, login, register, editUserProfile };

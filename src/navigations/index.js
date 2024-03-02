@@ -34,7 +34,7 @@ const ROUTES = {
     },
     PROFILE_NAVIGATION: {
       INDEX: "Profile Navigation",
-      PROFILE: "User Profile",
+      PROFILE: "UserProfile",
     },
     HOME_NAVIGATION: {
       INDEX: "Home Navigation",
