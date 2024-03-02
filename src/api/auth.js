@@ -1,4 +1,5 @@
 import { instance } from ".";
+// import ROUTES from "../navigations";
 import { saveToken } from "./storage";
 
 const me = async () => {
@@ -12,6 +13,9 @@ const login = async (userInfo) => {
   if (token) {
     saveToken(token);
   }
+  //navigate here?!
+  //navigation.navigate(ROUTES.AUTH.AUTH_NAVIGATION.HelperProfile);
+
   return res.data;
 };
 const register = async (userInfo) => {

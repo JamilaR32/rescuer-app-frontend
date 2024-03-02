@@ -16,6 +16,8 @@ const Login = () => {
     mutationFn: () => login(userInfo),
     onSuccess: () => {
       setUser(true);
+      // mutate(); // check
+      // navigation.navigate(ROUTES.AUTH.AUTH_NAVIGATION.REGISTER);
     },
   });
 

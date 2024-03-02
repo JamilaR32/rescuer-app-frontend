@@ -3,7 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import ROUTES from "..";
 import Login from "../../screens/auth/Login";
 import Register from "../../screens/auth/Register";
-
+//ERROR HERE LOGIN UNDEFINED
 const AuthNavigation = () => {
   const Stack = createStackNavigator();
 
