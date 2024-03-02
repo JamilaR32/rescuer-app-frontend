@@ -6,25 +6,29 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { editUserProfile, me } from "../../../api/auth";
+import { editUserProfile, getAllUsers, me } from "../../../api/auth";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import ROUTES from "../../../navigations";
 import { COLORS, FONTS } from "../../../constants/Theme";
+import UserContext from "../../../context/UserContext";
 const UserProfile = () => {
   const navigation = useNavigation();
-  const { data: profileUser } = useQuery({
-    queryKey: ["userProfile"],
-    queryFn: () => me(),
+  const [user, setUser] = useContext(UserContext);
+  const { data: users, isError } = useQuery({
+    queryKey: ["users"],
+    queryFn: () => {
+      getAllUsers();
+    },
   });
-
+  console.log(users);
   const [name, setName] = useState(name);
   const [password, setPassword] = useState(password);
   const [civilId, setCivilId] = useState(civilId);
   const [phoneNumber, setPhoneNumber] = useState(phoneNumber);
-  console.log(profileUser?.fullName);
+  // console.log(profileUser?.fullName);
   const { mutate } = useMutation({
     mutationKey: ["edit"],
     mutationFn: () => {
@@ -61,7 +65,7 @@ const UserProfile = () => {
           />
         </TouchableOpacity>
 
-        <Text style={{ ...FONTS.h3 }}>Profile</Text>
+        <Text style={{ ...FONTS.h3 }}></Text>
         <View></View>
       </View>
       <View

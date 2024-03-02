@@ -1,4 +1,4 @@
-import { Button, Pressable, StyleSheet, Text, View } from "react-native";
+import { Button, Image, Pressable, StyleSheet, Text, View } from "react-native";
 import React, { useContext, useState } from "react";
 import ROUTES from "../../navigations";
 import { useNavigation } from "@react-navigation/native";
@@ -6,7 +6,7 @@ import { TextInput } from "react-native-gesture-handler";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "../../api/auth";
 import UserContext from "../../context/UserContext";
-
+const logo = require("../../../assets/logo");
 const Login = () => {
   const navigation = useNavigation();
   const [userInfo, setUserInfo] = useState({});
@@ -16,7 +16,6 @@ const Login = () => {
     mutationFn: () => login(userInfo),
     onSuccess: () => {
       setUser(true);
-  
     },
   });
   const handleRegisterHelper = () => {
@@ -28,6 +27,14 @@ const Login = () => {
 
   return (
     <View style={styles.container}>
+      <Image
+        style={{
+          height: 100,
+          width: 100,
+          birderRadius: 100,
+        }}
+        source={logo}
+      />
       <Text style={styles.label}>Civil ID</Text>
       <TextInput
         placeholder="Enter your Civil ID"
@@ -42,7 +49,9 @@ const Login = () => {
         style={styles.input}
       />
       <View style={styles.buttonContainer}>
-        <Button title="Login" onPress={mutate} style={styles.loginButton} />
+        <Pressable onPress={() => mutate()} style={styles.loginButton}>
+          <Text style={styles.loginButtonText}>Login</Text>
+        </Pressable>
 
         <View style={styles.footer}>
           <Text>Not a user?</Text>
@@ -56,15 +65,14 @@ const Login = () => {
           </Pressable>
         </View>
         <View style={styles.footer}>
-          <Text>Not a helper?</Text>
-        <Pressable
-          onPress={() =>
-            navigation.navigate(ROUTES.AUTH.AUTH_NAVIGATION.REGISTER_HELPER)
-          }
-        >
-          <Text style={styles.helperLink}>Register as a helper</Text>
-        </Pressable>
-      </View>
+          <Pressable
+            onPress={() =>
+              navigation.navigate(ROUTES.AUTH.AUTH_NAVIGATION.REGISTER_HELPER)
+            }
+          >
+            <Text style={styles.helperLink}>Register as a helper</Text>
+          </Pressable>
+        </View>
       </View>
     </View>
   );
@@ -78,7 +86,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
-    backgroundColor: "#F5EEF8",
+    backgroundColor: "#f9f4ef",
   },
   input: {
     borderColor: "black",
@@ -87,7 +95,7 @@ const styles = StyleSheet.create({
     width: "80%",
     padding: 10,
     marginVertical: 10, // Adds space above and below the input
-    backgroundColor: "#D7BDE2",
+    backgroundColor: "#eaddcf",
   },
   buttonContainer: {
     marginTop: 20,
@@ -96,31 +104,32 @@ const styles = StyleSheet.create({
   },
   label: {
     alignSelf: "flex-start",
-    marginLeft: "10%", // Adjust based on your layout preference
+    marginLeft: "12%", // Adjust based on your layout preference
   },
   footer: {
     flexDirection: "row",
-    marginTop: 20,
+    marginTop: 10,
+    justifyContent: "center",
   },
   link: {
-    color: "#FF33CE",
+    color: "#f25042",
     marginLeft: 5,
   },
   helperLink: {
-    color: "#FF33CE",
+    color: "#f25042",
     marginLeft: 5,
   },
   loginButton: {
-    backgroundColor: "#8E44AD",
+    backgroundColor: "#8c7851",
     padding: 10,
     borderRadius: 20,
-    //width: "80%",
+    width: "98%",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 20,
+    marginTop: 10,
   },
   loginButtonText: {
-    color: "white",
+    color: "#fffffe",
     fontSize: 16,
   },
 });
