@@ -1,44 +1,57 @@
 import {
   Button,
   SafeAreaView,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { editUserProfile, me } from "../../../api/auth";
+import { editUserProfile, getAllUsers, me } from "../../../api/auth";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import ROUTES from "../../../navigations";
 import { COLORS, FONTS } from "../../../constants/Theme";
+import UserContext from "../../../context/UserContext";
 const UserProfile = () => {
   const navigation = useNavigation();
-  const { data: profileUser } = useQuery({
-    queryKey: ["userProfile"],
+  const [user, setUser] = useContext(UserContext);
+  const [edit, setEdit] = useState(false);
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [civilId, setCivilId] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+
+  const { data } = useQuery({
+    queryKey: ["myInfo"],
     queryFn: () => me(),
   });
 
-  const [name, setName] = useState(name);
-  const [password, setPassword] = useState(password);
-  const [civilId, setCivilId] = useState(civilId);
-  const [phoneNumber, setPhoneNumber] = useState(phoneNumber);
-  console.log(profileUser?.fullName);
+  useEffect(() => {
+    if (data) {
+      setCivilId(data?.civilId);
+      setName(data?.fullName);
+      setPhoneNumber(data?.phoneNumber);
+      setPassword(data?.password);
+    }
+  }, [data]);
+
   const { mutate } = useMutation({
     mutationKey: ["edit"],
     mutationFn: () => {
-      editUserProfile();
+      return editUserProfile({
+        fullName: name,
+        civilId: civilId,
+        phoneNumber: phoneNumber,
+        password: password,
+      });
     },
   });
-  return (
-    <View
-      style={{
-        flex: 1,
 
-        paddingHorizontal: 22,
-      }}
-    >
+  return (
+    <View style={styles.container}>
       <View
         style={{
           marginHorizontal: 12,
@@ -48,12 +61,16 @@ const UserProfile = () => {
         }}
       >
         <TouchableOpacity
-         // onPress={() => navigation.navigate(ROUTES.USER.HOME_NAVIGATION.HOME)}
-          onPress={() =>
-            navigation.navigate(ROUTES.HELPER.LOCATION_NAVIGATION.INDEX, {
-              screen: ROUTES.HELPER.LOCATION_NAVIGATION.MAP,
-            })
-          }
+          style={styles.buttonContainer}
+          onPress={() => {
+            setEdit(!edit);
+          }}
+        >
+          <Text>Edit</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => navigation.navigate(ROUTES.USER.HOME_NAVIGATION.INDEX)}
           style={{
             position: "absolute",
             left: 10,
@@ -66,18 +83,10 @@ const UserProfile = () => {
           />
         </TouchableOpacity>
 
-        <Text style={{ ...FONTS.h3 }}>Profile</Text>
+        <Text style={{ ...FONTS.h3 }}></Text>
         <View></View>
       </View>
-      <View
-        style={{
-          flex: 0.75,
-          backgroundColor: COLORS.white,
-          justifyContent: "center",
-
-          top: 80,
-        }}
-      >
+      <View>
         <View
           style={{
             flexDirection: "column",
@@ -100,7 +109,7 @@ const UserProfile = () => {
             <TextInput
               value={name}
               onChangeText={(value) => setName(value)}
-              editable={true}
+              editable={edit}
             />
           </View>
         </View>
@@ -127,7 +136,7 @@ const UserProfile = () => {
             <TextInput
               value={civilId}
               onChangeText={(value) => setCivilId(value)}
-              editable={true}
+              editable={edit}
             />
           </View>
         </View>
@@ -154,7 +163,7 @@ const UserProfile = () => {
             <TextInput
               value={password}
               onChangeText={(value) => setPassword(value)}
-              editable={true}
+              editable={edit}
               secureTextEntry
             />
           </View>
@@ -182,14 +191,21 @@ const UserProfile = () => {
             <TextInput
               value={phoneNumber}
               onChangeText={(value) => setPhoneNumber(value)}
-              editable={true}
+              editable={edit}
             />
           </View>
-          <Button
-            title={"Hi"}
-            color="red"
-            style={{ backgroundColor: "green" }}
-          />
+        </View>
+        <View style={styles.buttonContainer}>
+          {edit && (
+            <TouchableOpacity
+              style={styles.saveButton}
+              onPress={() => {
+                mutate;
+              }}
+            >
+              <Text style={styles.saveButtonText}>SAVE</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     </View>
@@ -197,3 +213,58 @@ const UserProfile = () => {
 };
 
 export default UserProfile;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+    backgroundColor: "#f9f4ef",
+  },
+  input: {
+    borderColor: "black",
+    borderWidth: 0.5,
+    borderRadius: 20,
+    width: "80%",
+    padding: 10,
+    marginVertical: 10, // Adds space above and below the input
+    backgroundColor: "#eaddcf",
+  },
+  buttonContainer: {
+    marginTop: 20,
+    width: "80%",
+    borderRadius: 20,
+  },
+  label: {
+    alignSelf: "flex-start",
+    marginLeft: "12%", // Adjust based on your layout preference
+    fontWeight: "bold",
+    marginBottom: -5,
+  },
+  footer: {
+    flexDirection: "row",
+    marginTop: 10,
+    justifyContent: "center",
+  },
+  link: {
+    color: "#f25042",
+    marginLeft: 5,
+  },
+  helperLink: {
+    color: "#f25042",
+    marginLeft: 5,
+  },
+  saveButton: {
+    backgroundColor: "#8c7851",
+    padding: 10,
+    borderRadius: 20,
+    width: "98%",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: -10,
+  },
+  saveButtonText: {
+    color: "#fffffe",
+    fontSize: 16,
+  },
+});

@@ -9,7 +9,10 @@ import HelperRegister from "../../screens/auth/HelperRegister";
 const Stack = createStackNavigator();
 const AuthNavigation = () => {
   return (
-    <Stack.Navigator initialRouteName={ROUTES.AUTH.AUTH_NAVIGATION.LOGIN}>
+    <Stack.Navigator
+      screenOptions={{ headerShown: false }}
+      initialRouteName={ROUTES.AUTH.AUTH_NAVIGATION.LOGIN}
+    >
       <Stack.Screen
         name={ROUTES.AUTH.AUTH_NAVIGATION.LOGIN}
         component={Login}

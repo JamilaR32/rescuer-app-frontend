@@ -3,10 +3,13 @@ import { instance } from ".";
 import { saveToken } from "./storage";
 
 const me = async () => {
-  const { data } = await instance.get("/profile");
-  return data;
+  const res = await instance.get("/profile");
+  return res.data;
 };
-
+const getAllUsers = async () => {
+  const res = await instance.get("/users");
+  return res.data;
+};
 const login = async (userInfo) => {
   //http://localhost:8080/api/login
   //rescuer-app-backend
@@ -27,7 +30,7 @@ const login = async (userInfo) => {
 };
 const register = async (userInfo) => {
   const res = await instance.post("/register", userInfo);
-  if (res.token) {
+  if (res.data.token) {
     saveToken(res.data.token);
   }
   return res.data;
@@ -49,4 +52,4 @@ const editUserProfile = async (userInfo) => {
   return res.data;
 };
 
-export { me, login, register, editUserProfile };
+export { me, login, register, editUserProfile, getAllUsers };

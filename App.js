@@ -30,10 +30,9 @@ export default function App() {
       <UserContext.Provider value={[user, setUser]}>
         <NavigationContainer>
           {/* {user ? <UserMainNavigation /> : <AuthNavigation />} */}
-          {/* <UserProfile /> */}
+          {/* <UserMainNavigation /> */}
           {user ? <UserProfile /> : <AuthNavigation />}
         </NavigationContainer>
-
       </UserContext.Provider>
     </QueryClientProvider>
   );

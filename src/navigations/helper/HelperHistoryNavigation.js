@@ -6,7 +6,7 @@ import History from "../../screens/helper/History";
 const HelperHistoryNavigation = () => {
   const Stack = createStackNavigator();
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen
         name={ROUTES.HELPER.HISTORY_NAVIGATION.HISTORY}
         component={History}

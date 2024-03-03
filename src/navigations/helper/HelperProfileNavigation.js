@@ -9,7 +9,7 @@ const HelperProfileNavigation = () => {
   const Stack = createStackNavigator();
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen
         name={ROUTES.HELPER.PROFILE_NAVIGATION.PROFILE}
         component={HelperProfile}
