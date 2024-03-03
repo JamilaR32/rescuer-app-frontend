@@ -26,12 +26,8 @@
     "react": "18.2.0",
     "react-native": "0.73.4",
     "react-native-gesture-handler": "^2.15.0",
-<<<<<<< HEAD
-    "react-native-image-picker": "^7.1.0"
-=======
     "react-native-image-picker": "^7.1.0",
     "react-native-maps": "^1.10.3"
->>>>>>> origin/master
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

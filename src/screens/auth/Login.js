@@ -25,6 +25,9 @@ const Login = () => {
     onSuccess: () => {
       console.log("first");
       setUser(true);
+
+      // mutate(); // check
+      navigation.navigate(ROUTES.USER.PROFILE_NAVIGATION.PROFILE);
     },
   });
   const handleRegisterHelper = () => {
