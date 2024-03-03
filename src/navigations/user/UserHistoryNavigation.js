@@ -8,7 +8,7 @@ import UserHistory from "../../screens/user/History/UserHistory";
 const UserHistoryNavigation = () => {
   const Stack = createStackNavigator();
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen
         name={ROUTES.USER.HISTORY_NAVIGATION.HISTORY}
         component={UserHistory}

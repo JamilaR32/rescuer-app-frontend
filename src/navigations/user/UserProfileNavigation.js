@@ -8,7 +8,7 @@ import UserProfile from "../../screens/user/Profile/UserProfile";
 const UserProfileNavigation = () => {
   const Stack = createStackNavigator();
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen
         name={ROUTES.USER.PROFILE_NAVIGATION.PROFILE}
         component={UserProfile}

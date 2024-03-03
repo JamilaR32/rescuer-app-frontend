@@ -1,4 +1,12 @@
-import { Button, Image, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Button,
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  View,
+} from "react-native";
 import React, { useContext, useState } from "react";
 import ROUTES from "../../navigations";
 import { useNavigation } from "@react-navigation/native";
@@ -6,7 +14,7 @@ import { TextInput } from "react-native-gesture-handler";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "../../api/auth";
 import UserContext from "../../context/UserContext";
-const logo = require("../../../assets/logo");
+const logo = require("../../../assets/logo/rescLogo.png");
 const Login = () => {
   const navigation = useNavigation();
   const [userInfo, setUserInfo] = useState({});
@@ -15,6 +23,7 @@ const Login = () => {
     mutationKey: ["login"],
     mutationFn: () => login(userInfo),
     onSuccess: () => {
+      console.log("first");
       setUser(true);
     },
   });
@@ -29,9 +38,10 @@ const Login = () => {
     <View style={styles.container}>
       <Image
         style={{
-          height: 100,
-          width: 100,
-          birderRadius: 100,
+          height: 200,
+          width: 200,
+          borderRadius: 200,
+          marginBottom: 20,
         }}
         source={logo}
       />
@@ -49,9 +59,9 @@ const Login = () => {
         style={styles.input}
       />
       <View style={styles.buttonContainer}>
-        <Pressable onPress={() => mutate()} style={styles.loginButton}>
+        <TouchableHighlight onPress={() => mutate()} style={styles.loginButton}>
           <Text style={styles.loginButtonText}>Login</Text>
-        </Pressable>
+        </TouchableHighlight>
 
         <View style={styles.footer}>
           <Text>Not a user?</Text>
@@ -105,6 +115,8 @@ const styles = StyleSheet.create({
   label: {
     alignSelf: "flex-start",
     marginLeft: "12%", // Adjust based on your layout preference
+    fontWeight: "bold",
+    marginBottom: -5,
   },
   footer: {
     flexDirection: "row",
@@ -126,7 +138,7 @@ const styles = StyleSheet.create({
     width: "98%",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 10,
+    marginTop: -10,
   },
   loginButtonText: {
     color: "#fffffe",

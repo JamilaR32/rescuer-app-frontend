@@ -6,7 +6,7 @@ import Requests from "../../screens/helper/Requests";
 const HelperRequestsNavigation = () => {
   const Stack = createStackNavigator();
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen
         name={ROUTES.HELPER.REQUESTS_NAVIGATION.REQUESTS}
         component={Requests}

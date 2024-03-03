@@ -8,7 +8,7 @@ const HelperHomeNavigation = () => {
   const Stack = createStackNavigator();
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen
         name={ROUTES.HELPER.HOME_NAVIGATION.HOME}
         component={Home}

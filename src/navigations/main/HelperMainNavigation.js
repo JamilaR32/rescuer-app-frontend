@@ -10,7 +10,7 @@ import HelperRequestsNavigation from "../helper/HelperRequestsNavigation";
 const HelperMainNavigation = () => {
   const Tab = createBottomTabNavigator();
   return (
-    <Tab.Navigator>
+    <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen
         name={ROUTES.HELPER.HISTORY_NAVIGATION.INDEX}
         component={HelperHistoryNavigation}
