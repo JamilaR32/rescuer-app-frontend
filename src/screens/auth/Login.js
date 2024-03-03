@@ -9,24 +9,31 @@ import UserContext from "../../context/UserContext";
 
 const Login = () => {
   const navigation = useNavigation();
-  const [user, setUser] = useContext(UserContext);
   const [userInfo, setUserInfo] = useState({});
+  const [user, setUser] = useContext(UserContext);
   const { mutate } = useMutation({
     mutationKey: ["login"],
     mutationFn: () => login(userInfo),
     onSuccess: () => {
       setUser(true);
+
       // mutate(); // check
-      // navigation.navigate(ROUTES.AUTH.AUTH_NAVIGATION.REGISTER);
+      navigation.navigate(ROUTES.USER.PROFILE_NAVIGATION.PROFILE);
     },
   });
+  const handleRegisterHelper = () => {
+    console.log("Register as a helper button pressed");
+    console.log("Navigation object:", navigation);
+    navigation.navigate(ROUTES.AUTH.AUTH_NAVIGATION.REGISTER_HELPER);
+  };
+  console.log("User info:", userInfo);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Phone Number</Text>
+      <Text style={styles.label}>Civil ID</Text>
       <TextInput
-        placeholder="Enter your Phone Number"
-        onChangeText={(text) => setUserInfo({ ...userInfo, phoneNumber: text })}
+        placeholder="Enter your Civil ID"
+        onChangeText={(text) => setUserInfo({ ...userInfo, civilId: text })}
         style={styles.input}
       />
       <Text style={styles.label}>Password</Text>
@@ -37,12 +44,11 @@ const Login = () => {
         style={styles.input}
       />
       <View style={styles.buttonContainer}>
-        <Pressable onPress={() => mutate()} style={styles.loginButton}>
-          <Text style={styles.loginButtonText}>Login</Text>
-        </Pressable>
+        <Button title="Login" onPress={mutate} style={styles.loginButton} />
+
         <View style={styles.footer}>
           <Text>Not a user?</Text>
-
+          {/* <Text>{user}</Text> */}
           <Pressable
             onPress={() =>
               navigation.navigate(ROUTES.AUTH.AUTH_NAVIGATION.REGISTER)
@@ -51,12 +57,23 @@ const Login = () => {
             <Text style={styles.link}>Register</Text>
           </Pressable>
         </View>
+        <View style={styles.footer}>
+          <Text>Not a helper?</Text>
+          <Pressable
+            onPress={() =>
+              navigation.navigate(ROUTES.AUTH.AUTH_NAVIGATION.REGISTER_HELPER)
+            }
+          >
+            <Text style={styles.helperLink}>Register as a helper</Text>
+          </Pressable>
+        </View>
       </View>
     </View>
   );
 };
 
 export default Login;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -88,6 +105,10 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   link: {
+    color: "#FF33CE",
+    marginLeft: 5,
+  },
+  helperLink: {
     color: "#FF33CE",
     marginLeft: 5,
   },

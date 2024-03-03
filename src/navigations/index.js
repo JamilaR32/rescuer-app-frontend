@@ -4,6 +4,7 @@ const ROUTES = {
       INDEX: "Auth Navigation",
       LOGIN: "Login Page",
       REGISTER: "Join Us",
+      HELPER_REGISTER: "Register as a Helper",
     },
   },
   // ERROR HERE LOGIN UNDEFINED
@@ -33,7 +34,7 @@ const ROUTES = {
     },
     PROFILE_NAVIGATION: {
       INDEX: "Profile Navigation",
-      PROFILE: "User Profile",
+      PROFILE: "UserProfile",
     },
     HOME_NAVIGATION: {
       INDEX: "Home Navigation",
