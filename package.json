@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.0",
+    "@react-native-community/geolocation": "^3.1.0",
     "@react-navigation/bottom-tabs": "^6.5.12",
     "@react-navigation/native": "^6.1.10",
     "@react-navigation/stack": "^6.3.21",
@@ -18,13 +19,19 @@
     "expo": "~50.0.7",
     "expo-font": "~11.10.3",
     "expo-image-picker": "~14.7.1",
+    "expo-location": "~16.5.3",
     "expo-secure-store": "~12.8.1",
     "expo-status-bar": "~1.11.1",
     "native-base": "^3.4.28",
     "react": "18.2.0",
     "react-native": "0.73.4",
     "react-native-gesture-handler": "^2.15.0",
+<<<<<<< HEAD
     "react-native-image-picker": "^7.1.0"
+=======
+    "react-native-image-picker": "^7.1.0",
+    "react-native-maps": "^1.10.3"
+>>>>>>> origin/master
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
