@@ -16,7 +16,6 @@ const Login = () => {
     mutationFn: () => login(userInfo),
     onSuccess: () => {
       setUser(true);
-  
     },
   });
   const handleRegisterHelper = () => {
@@ -57,14 +56,14 @@ const Login = () => {
         </View>
         <View style={styles.footer}>
           <Text>Not a helper?</Text>
-        <Pressable
-          onPress={() =>
-            navigation.navigate(ROUTES.AUTH.AUTH_NAVIGATION.REGISTER_HELPER)
-          }
-        >
-          <Text style={styles.helperLink}>Register as a helper</Text>
-        </Pressable>
-      </View>
+          <Pressable
+            onPress={() =>
+              navigation.navigate(ROUTES.AUTH.AUTH_NAVIGATION.REGISTER_HELPER)
+            }
+          >
+            <Text style={styles.helperLink}>Register as a helper</Text>
+          </Pressable>
+        </View>
       </View>
     </View>
   );
