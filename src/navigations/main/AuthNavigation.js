@@ -17,10 +17,10 @@ const AuthNavigation = () => {
         name={ROUTES.AUTH.AUTH_NAVIGATION.REGISTER}
         component={Register}
       />
-      {/* <Stack.Screen
+      <Stack.Screen
         name={ROUTES.AUTH.AUTH_NAVIGATION.REGISTER_HELPER}
         component={HelperRegister}
-      /> */}
+      />
     </Stack.Navigator>
   );
 };
