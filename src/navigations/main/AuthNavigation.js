@@ -4,7 +4,7 @@ import ROUTES from "..";
 import Login from "../../screens/auth/Login";
 import Register from "../../screens/auth/Register";
 import HelperRegister from "../../screens/auth/HelperRegister";
-//ERROR HERE LOGIN UNDEFINED
+
 
 const Stack = createStackNavigator();
 const AuthNavigation = () => {
