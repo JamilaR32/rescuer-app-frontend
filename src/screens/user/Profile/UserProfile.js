@@ -55,12 +55,36 @@ const UserProfile = () => {
       <View
         style={{
           marginHorizontal: 12,
-          justifyContent: "flex-end",
-          alignItems: "flex-end",
-          backgroundColor: "green",
+          flexDirection: "row",
+          justifyContent: "center",
+          top: 40,
         }}
       >
-        <Text>jjjjj</Text>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() => {
+            setEdit(!edit);
+          }}
+        >
+          <Text>Edit</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => navigation.navigate(ROUTES.USER.HOME_NAVIGATION.INDEX)}
+          style={{
+            position: "absolute",
+            left: 10,
+          }}
+        >
+          <MaterialIcons
+            name="keyboard-arrow-left"
+            size={24}
+            color={COLORS.black}
+          />
+        </TouchableOpacity>
+
+        <Text style={{ ...FONTS.h3 }}></Text>
+        <View></View>
       </View>
       <View>
         <View
