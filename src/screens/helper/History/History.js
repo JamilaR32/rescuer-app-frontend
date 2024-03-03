@@ -9,7 +9,7 @@ const History = () => {
     queryKey: ["history"],
     queryFn: () => pastRequests(),
   });
-  console.log(data);
+
   return (
     <Box>
       <Heading fontSize="xl" p="4" pb="3">
@@ -68,14 +68,6 @@ const History = () => {
         keyExtractor={(item) => item._id}
       />
     </Box>
-    // <View style={{ flex: 1 }}>
-    //   <FlatList
-    //     data={data}
-    //     renderItem={({ item }) => <Text>{item.title}</Text>}
-    //     key={(item) => item._id}
-    //   />
-    //   <Text>History</Text>
-    // </View>
   );
 };
 

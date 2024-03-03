@@ -13,6 +13,7 @@ import { TextInput } from "react-native-gesture-handler";
 import { useMutation } from "@tanstack/react-query";
 import { register } from "../../api/auth";
 import UserContext from "../../context/UserContext";
+import { jwtDecode } from "jwt-decode";
 
 const Register = () => {
   const navigation = useNavigation();
@@ -20,9 +21,9 @@ const Register = () => {
   const [user, setUser] = useContext(UserContext);
   const { mutate } = useMutation({
     mutationFn: () => register(userInfo),
-    onSuccess: () => {
-      setUser(true);
-      navigation.navigate(ROUTES.USER.PROFILE_NAVIGATION.PROFILE);
+    onSuccess: (data) => {
+      const decode = jwtDecode(data.token);
+      setUser(decode);
     },
   });
 

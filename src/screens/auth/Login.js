@@ -14,6 +14,7 @@ import { TextInput } from "react-native-gesture-handler";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "../../api/auth";
 import UserContext from "../../context/UserContext";
+import { jwtDecode } from "jwt-decode";
 const logo = require("../../../assets/logo/rescLogo.png");
 const Login = () => {
   const navigation = useNavigation();
@@ -22,12 +23,10 @@ const Login = () => {
   const { mutate } = useMutation({
     mutationKey: ["login"],
     mutationFn: () => login(userInfo),
-    onSuccess: () => {
-      console.log("first");
-      setUser(true);
+    onSuccess: (data) => {
+      const decode = jwtDecode(data.token);
 
-      // mutate(); // check
-      navigation.navigate(ROUTES.USER.PROFILE_NAVIGATION.PROFILE);
+      setUser(decode);
     },
   });
   const handleRegisterHelper = () => {
@@ -81,7 +80,7 @@ const Login = () => {
           <Text>Not a helper?</Text>
           <Pressable
             onPress={() =>
-              navigation.navigate(ROUTES.AUTH.AUTH_NAVIGATION.REGISTER_HELPER)
+              navigation.navigate(ROUTES.AUTH.AUTH_NAVIGATION.HELPER_REGISTER)
             }
           >
             <Text style={styles.helperLink}>Register as a helper</Text>

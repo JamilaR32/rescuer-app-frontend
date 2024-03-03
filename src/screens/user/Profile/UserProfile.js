@@ -15,6 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import ROUTES from "../../../navigations";
 import { COLORS, FONTS } from "../../../constants/Theme";
 import UserContext from "../../../context/UserContext";
+import { deleteToken } from "../../../api/storage";
 const UserProfile = () => {
   const navigation = useNavigation();
   const [user, setUser] = useContext(UserContext);
@@ -50,8 +51,28 @@ const UserProfile = () => {
     },
   });
 
+  const handleLogout = () => {
+    deleteToken();
+    setUser(null);
+  };
   return (
     <View style={styles.container}>
+      <View
+        style={{
+          width: 100,
+          height: 100,
+          backgroundColor: "red",
+        }}
+      >
+        <TouchableOpacity
+          style={{ flex: 1 }}
+          onPress={() => {
+            handleLogout();
+          }}
+        >
+          <Text>LOG OUT</Text>
+        </TouchableOpacity>
+      </View>
       <View
         style={{
           marginHorizontal: 12,
