@@ -7,7 +7,7 @@ const ROUTES = {
       REGISTER_HELPER: "Register as a Helper",
     },
   },
-
+  // ERROR HERE LOGIN UNDEFINED
   HELPER: {
     HISTORY_NAVIGATION: {
       INDEX: "Helper History navigation",
@@ -24,6 +24,10 @@ const ROUTES = {
     REQUESTS_NAVIGATION: {
       INDEX: "Helper Request navigation",
       REQUESTS: "Helper Requests",
+    },
+    LOCATION_NAVIGATION: {
+      INDEX: "Location navigation",
+      MAP: "Location Map",
     },
   },
 

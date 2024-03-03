@@ -5,6 +5,7 @@ const UserHome = () => {
   return (
     <View>
       <Text>UserHome</Text>
+      <Text>UserHome</Text>
     </View>
   );
 };

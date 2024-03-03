@@ -1,4 +1,5 @@
 import { instance } from ".";
+// import ROUTES from "../navigations";
 import { saveToken } from "./storage";
 
 const me = async () => {
@@ -7,10 +8,13 @@ const me = async () => {
 };
 
 const login = async (userInfo) => {
+  //http://localhost:8080/api/login
+  //rescuer-app-backend
+
   const res = await instance.post("/login", userInfo);
   const token = res.data.token;
-  if (res.data.token) {
-    saveToken(res.data.token);
+  if (token) {
+    saveToken(token);
   }
   return res.data;
 };

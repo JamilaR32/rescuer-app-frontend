@@ -1,11 +1,14 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import Mapz from "./Map";
 
-const Home = () => {
-  return <Mapz />;
+const MyButton = () => {
+  return (
+    <View>
+      <Text>MyButton</Text>
+    </View>
+  );
 };
 
-export default Home;
+export default MyButton;
 
 const styles = StyleSheet.create({});
