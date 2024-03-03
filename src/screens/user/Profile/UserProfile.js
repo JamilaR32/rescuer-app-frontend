@@ -48,6 +48,7 @@ const UserProfile = () => {
         }}
       >
         <TouchableOpacity
+         // onPress={() => navigation.navigate(ROUTES.USER.HOME_NAVIGATION.HOME)}
           onPress={() =>
             navigation.navigate(ROUTES.HELPER.LOCATION_NAVIGATION.INDEX, {
               screen: ROUTES.HELPER.LOCATION_NAVIGATION.MAP,

@@ -7,6 +7,7 @@ import UserContext from "./src/context/UserContext";
 import UserMainNavigation from "./src/navigations/main/UserMainNavigation";
 import { getToken } from "./src/api/storage";
 import UserProfile from "./src/screens/user/Profile/UserProfile";
+
 import Mapz from "./src/screens/helper/Home/Map";
 import Home from "./src/screens/helper/Home/Home";
 //import { NativeBaseProvider, Box, Text } from "native-base";
@@ -27,13 +28,12 @@ export default function App() {
   return (
     <QueryClientProvider client={new QueryClient()}>
       <UserContext.Provider value={[user, setUser]}>
-        {/* <NavigationContainer> */}
-        {/* {user ? <UserMainNavigation /> : <AuthNavigation />} */}
-        {/* <UserProfile /> */}
-        {/* {user ? <UserProfile /> : <AuthNavigation />} */}
+        <NavigationContainer>
+          {/* {user ? <UserMainNavigation /> : <AuthNavigation />} */}
+          {/* <UserProfile /> */}
+          {user ? <UserProfile /> : <AuthNavigation />}
+        </NavigationContainer>
 
-        {/* </NavigationContainer> */}
-        <Home />
       </UserContext.Provider>
     </QueryClientProvider>
   );

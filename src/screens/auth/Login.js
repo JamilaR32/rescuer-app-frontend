@@ -16,6 +16,9 @@ const Login = () => {
     mutationFn: () => login(userInfo),
     onSuccess: () => {
       setUser(true);
+
+      // mutate(); // check
+      navigation.navigate(ROUTES.USER.PROFILE_NAVIGATION.PROFILE);
     },
   });
   const handleRegisterHelper = () => {
