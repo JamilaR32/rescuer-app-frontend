@@ -15,26 +15,19 @@ const login = async (userInfo) => {
   const token = res.data.token;
   if (token) {
     saveToken(token);
-    //
-    // return
-    //
   }
-
-  //navigate here?!
-  //navigation.navigate(ROUTES.AUTH.AUTH_NAVIGATION.HelperProfile);
-
   return res.data;
 };
 const register = async (userInfo) => {
   const res = await instance.post("/register", userInfo);
-  if (res.token) {
+  if (res.data.token) {
     saveToken(res.data.token);
   }
   return res.data;
 };
 const registerHelper = async (userInfo) => {
   const res = await instance.post("/register-helper", userInfo);
-  if (res.token) {
+  if (res.data.token) {
     saveToken(res.data.token);
   }
   return res.data;

@@ -13,7 +13,7 @@ const Login = () => {
   const [user, setUser] = useContext(UserContext);
   const { mutate } = useMutation({
     mutationKey: ["login"],
-    mutationFn: () => login(userInfo),
+    mutationFn: (userInfo) => login(userInfo),
     onSuccess: () => {
       setUser(true);
 
@@ -44,7 +44,7 @@ const Login = () => {
         style={styles.input}
       />
       <View style={styles.buttonContainer}>
-        <Button title="Login" onPress={mutate} style={styles.loginButton} />
+        <Button title="Login" onPress={() => mutate(userInfo)} style={styles.loginButton} />
 
         <View style={styles.footer}>
           <Text>Not a user?</Text>
