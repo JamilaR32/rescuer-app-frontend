@@ -25,6 +25,10 @@ const ROUTES = {
       INDEX: "Helper Request navigation",
       REQUESTS: "Helper Requests",
     },
+    LOCATION_NAVIGATION: {
+      INDEX: "Location navigation",
+      MAP: "Location Map",
+    },
   },
 
   USER: {
