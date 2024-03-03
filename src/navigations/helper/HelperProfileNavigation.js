@@ -4,10 +4,9 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import ROUTES from "..";
-import HelperProfile from "../../screens/helper/HelperProfile";
+import HelperProfile from "../../screens/helper/Profile/HelperProfile";
+const Stack = createStackNavigator();
 const HelperProfileNavigation = () => {
-  const Stack = createStackNavigator();
-
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen

@@ -3,17 +3,12 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import ROUTES from "..";
-import Home from "../../screens/helper/Home";
-import Mapz from "../../screens/helper/Home/Map";
-const HelperHomeNavigation = () => {
-  const Stack = createStackNavigator();
 
+import Mapz from "../../screens/helper/Home/Map";
+const Stack = createStackNavigator();
+const HelperHomeNavigation = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen
-        name={ROUTES.HELPER.HOME_NAVIGATION.HOME}
-        component={Home}
-      ></Stack.Screen>
       <Stack.Screen
         name={ROUTES.HELPER.LOCATION_NAVIGATION.MAP}
         component={Mapz}

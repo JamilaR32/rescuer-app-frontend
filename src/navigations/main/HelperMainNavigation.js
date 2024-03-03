@@ -7,8 +7,8 @@ import HelperHomeNavigation from "../helper/HelperHomeNavigation";
 import HelperProfileNavigation from "../helper/HelperProfileNavigation";
 import HelperRequestsNavigation from "../helper/HelperRequestsNavigation";
 
+const Tab = createBottomTabNavigator();
 const HelperMainNavigation = () => {
-  const Tab = createBottomTabNavigator();
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen

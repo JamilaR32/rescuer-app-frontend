@@ -17,10 +17,8 @@ const login = async (userInfo) => {
   const res = await instance.post("/login", userInfo);
   const token = res.data.token;
   if (token) {
+    console.log("saving the token");
     saveToken(token);
-    //
-    // return
-    //
   }
 
   //navigate here?!
@@ -35,9 +33,28 @@ const register = async (userInfo) => {
   }
   return res.data;
 };
-const registerHelper = async (userInfo) => {
-  const res = await instance.post("/register-helper", userInfo);
-  if (res.token) {
+const registerHelperAPI = async (userInfo) => {
+  const formData = new FormData();
+  for (let key in userInfo) {
+    if (key != "image") {
+      formData.append(key, userInfo[key]);
+    }
+  }
+
+  if (userInfo.image) {
+    formData.append("image", {
+      name: "image.jpg",
+      type: "image/jpeg",
+      uri: userInfo.image,
+    });
+  }
+
+  const res = await instance.post("/register", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  if (res.data) {
     saveToken(res.data.token);
   }
   return res.data;
@@ -52,4 +69,4 @@ const editUserProfile = async (userInfo) => {
   return res.data;
 };
 
-export { me, login, register, editUserProfile, getAllUsers };
+export { me, login, register, editUserProfile, getAllUsers, registerHelperAPI };

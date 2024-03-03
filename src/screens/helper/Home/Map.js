@@ -53,9 +53,11 @@ const Mapz = () => {
   //   onPress={() => setLock(!lock)}
   //   style={styles.button}
   // />
+
+  // if there is no location permision dont show this page show please allow location firat to be able to see this page
   return (
     <View style={styles.container}>
-      <MapView
+      {/* <MapView
         provider={PROVIDER_GOOGLE}
         style={styles.map}
         ref={mapRef}
@@ -85,7 +87,7 @@ const Mapz = () => {
           strokeColor="#3399ff"
           fillColor="#80bfff"
         />
-      </MapView>
+      </MapView> */}
 
       <View style={{ flex: 1 }}>
         <View style={{ flex: 2 }}>

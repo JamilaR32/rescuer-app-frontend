@@ -5,7 +5,6 @@ import Login from "../../screens/auth/Login";
 import Register from "../../screens/auth/Register";
 import HelperRegister from "../../screens/auth/HelperRegister";
 
-
 const Stack = createStackNavigator();
 const AuthNavigation = () => {
   return (
@@ -21,10 +20,10 @@ const AuthNavigation = () => {
         name={ROUTES.AUTH.AUTH_NAVIGATION.REGISTER}
         component={Register}
       />
-      {/* <Stack.Screen
-        name={ROUTES.AUTH.AUTH_NAVIGATION.REGISTER_HELPER}
+      <Stack.Screen
+        name={ROUTES.AUTH.AUTH_NAVIGATION.HELPER_REGISTER}
         component={HelperRegister}
-      /> */}
+      />
     </Stack.Navigator>
   );
 };
