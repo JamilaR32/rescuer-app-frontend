@@ -6,26 +6,67 @@ import HelperHistoryNavigation from "../helper/HelperHistoryNavigation";
 import HelperHomeNavigation from "../helper/HelperHomeNavigation";
 import HelperProfileNavigation from "../helper/HelperProfileNavigation";
 import HelperRequestsNavigation from "../helper/HelperRequestsNavigation";
+import { MaterialCommunityIcons, Octicons } from "@expo/vector-icons";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 
-const Tab = createBottomTabNavigator();
+// const Tab = createBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator();
+
 const HelperMainNavigation = () => {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
-      <Tab.Screen
-        name={ROUTES.HELPER.HISTORY_NAVIGATION.INDEX}
-        component={HelperHistoryNavigation}
-      />
+    <Tab.Navigator
+      shifting={true}
+      activeColor="#f9f4ef"
+      inactiveColor="#8c7851"
+      barStyle={{ backgroundColor: "#8c7851", height: 90 }}
+      screenOptions={{ headerShown: false }}
+    >
       <Tab.Screen
         name={ROUTES.HELPER.HOME_NAVIGATION.INDEX}
         component={HelperHomeNavigation}
-      />
-      <Tab.Screen
-        name={ROUTES.HELPER.PROFILE_NAVIGATION.INDEX}
-        component={HelperProfileNavigation}
+        options={{
+          tabBarShowLabel: false,
+          title: "Home",
+          tabBarIcon: () => (
+            <MaterialCommunityIcons name="home" size={24} color="black" />
+          ),
+        }}
       />
       <Tab.Screen
         name={ROUTES.HELPER.REQUESTS_NAVIGATION.INDEX}
         component={HelperRequestsNavigation}
+        options={{
+          tabBarShowLabel: false,
+          title: "Requests",
+          tabBarIcon: () => (
+            <MaterialCommunityIcons
+              name="message-alert-outline"
+              size={24}
+              color="black"
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={ROUTES.HELPER.HISTORY_NAVIGATION.INDEX}
+        component={HelperHistoryNavigation}
+        options={{
+          tabBarShowLabel: false,
+          title: "History",
+          tabBarIcon: () => (
+            <MaterialCommunityIcons name="history" size={24} color="black" />
+          ),
+        }}
+      />
+
+      <Tab.Screen
+        name={ROUTES.HELPER.PROFILE_NAVIGATION.INDEX}
+        component={HelperProfileNavigation}
+        options={{
+          tabBarShowLabel: false,
+          title: "Profile",
+          tabBarIcon: () => <Octicons name="person" size={24} color="black" />,
+        }}
       />
     </Tab.Navigator>
   );

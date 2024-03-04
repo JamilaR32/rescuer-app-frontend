@@ -11,6 +11,9 @@ import { jwtDecode } from "jwt-decode";
 import HelperMainNavigation from "./src/navigations/main/HelperMainNavigation";
 import UserMainNavigation from "./src/navigations/main/UserMainNavigation";
 import { NativeBaseProvider } from "native-base";
+import UserProfile from "./src/screens/user/Profile/UserProfile";
+import HelperRegister from "./src/screens/auth/HelperRegister";
+import Register from "./src/screens/auth/Register";
 
 export default function App() {
   const [user, setUser] = useState(false);

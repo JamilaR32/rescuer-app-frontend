@@ -1,6 +1,4 @@
 import {
-  Button,
-  SafeAreaView,
   StyleSheet,
   Text,
   TextInput,
@@ -16,6 +14,7 @@ import ROUTES from "../../../navigations";
 import { COLORS, FONTS } from "../../../constants/Theme";
 import UserContext from "../../../context/UserContext";
 import { deleteToken } from "../../../api/storage";
+import { Octicons } from "@expo/vector-icons";
 const UserProfile = () => {
   const navigation = useNavigation();
   const [user, setUser] = useContext(UserContext);
@@ -59,38 +58,40 @@ const UserProfile = () => {
     <View style={styles.container}>
       <View
         style={{
-          width: 100,
-          height: 100,
-          backgroundColor: "red",
+          // width: 100,
+          // height: 100,
+          // backgroundColor: "red",
+          alignItems: "flex-end",
+          marginTop: 30,
+          marginBottom: 30,
         }}
       >
         <TouchableOpacity
-          style={{ flex: 1 }}
+          style={{ justifyContent: "flex-start" }}
           onPress={() => {
             handleLogout();
           }}
         >
-          <Text>LOG OUT</Text>
+          <Octicons name="sign-out" size={24} color="black" />
         </TouchableOpacity>
       </View>
       <View
         style={{
           marginHorizontal: 12,
-          flexDirection: "row",
-          justifyContent: "center",
-          top: 40,
+          marginBottom: 10,
+          top: 10,
         }}
       >
         <TouchableOpacity
-          style={styles.buttonContainer}
+          style={styles.edutButton}
           onPress={() => {
             setEdit(!edit);
           }}
         >
-          <Text>Edit</Text>
+          <Text style={styles.saveButtonText}>Edit</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => navigation.navigate(ROUTES.USER.HOME_NAVIGATION.INDEX)}
           style={{
             position: "absolute",
@@ -102,7 +103,7 @@ const UserProfile = () => {
             size={24}
             color={COLORS.black}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <Text style={{ ...FONTS.h3 }}></Text>
         <View></View>
@@ -237,10 +238,11 @@ export default UserProfile;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    // justifyContent: "center",
+    // alignItems: "center",
     padding: 20,
     backgroundColor: "#f9f4ef",
+    flexDirection: "column",
   },
   input: {
     borderColor: "black",
@@ -253,7 +255,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginTop: 20,
-    width: "80%",
+    width: "90%",
     borderRadius: 20,
   },
   label: {
@@ -277,6 +279,18 @@ const styles = StyleSheet.create({
   },
   saveButton: {
     backgroundColor: "#8c7851",
+    padding: 10,
+    borderRadius: 20,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: -10,
+    marginHorizontal: 12,
+    marginBottom: 10,
+    top: 10,
+  },
+  edutButton: {
+    backgroundColor: "#f25042",
     padding: 10,
     borderRadius: 20,
     width: "98%",
