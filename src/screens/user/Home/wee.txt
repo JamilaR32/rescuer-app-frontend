@@ -1,0 +1,59 @@
+  
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Animated,
+} from "react-native";
+
+
+const [isVisible, setIsVisible] = useState(false);
+  const animationHeight = useRef(new Animated.Value(0)).current; // Initial valu
+
+
+  const menuItems = [
+    { id: 1, title: "Item 1", action: () => console.log("Item 1 clicked") },
+    { id: 2, title: "Item 2", action: () => console.log("Item 2 clicked") },
+    { id: 3, title: "Item 3", action: () => console.log("Item 3 clicked") },
+    { id: 4, title: "Item 3", action: () => console.log("Item 3 clicked") },
+    { id: 5, title: "Item 3", action: () => console.log("Item 3 clicked") },
+    { id: 6, title: "Item 3", action: () => console.log("Item 3 clicked") },
+
+    // Add more items as needed
+  ];
+  
+  
+  
+  
+  const toggleMenu = () => {
+    const itemHeight = 50; // Adjust based on your actual item height
+    const totalHeight = menuItems.length * itemHeight;
+    Animated.timing(animationHeight, {
+      toValue: isVisible ? 0 : totalHeight,
+      duration: 300,
+      useNativeDriver: false,
+    }).start();
+
+    setIsVisible(!isVisible);
+  };
+ 
+ 
+ 
+ 
+ <Animated.View style={[styles.menu, { height: animationHeight }]}>
+        {menuItems.map((item) => (
+          <TouchableOpacity
+            key={item.id}
+            style={styles.button}
+            onPress={item.action}
+          >
+            <Text>{item.title}</Text>
+          </TouchableOpacity>
+        ))}
+      </Animated.View>
+      <TouchableOpacity onPress={toggleMenu} style={styles.dropUpButton}>
+        <Text style={styles.dropUpButtonText}>
+          {isVisible ? "Close" : "Open Menu"}
+        </Text>
+      </TouchableOpacity>

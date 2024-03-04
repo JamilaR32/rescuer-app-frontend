@@ -4,6 +4,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import ROUTES from "..";
 import UserHome from "../../screens/user/Home/UserHome";
+import UserMap from "../../screens/user/Home/UserHome";
 
 const UserHomeNavigation = () => {
   const Stack = createStackNavigator();
@@ -11,7 +12,7 @@ const UserHomeNavigation = () => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen
         name={ROUTES.USER.HOME_NAVIGATION.HOME}
-        component={UserHome}
+        component={UserMap}
       ></Stack.Screen>
     </Stack.Navigator>
   );

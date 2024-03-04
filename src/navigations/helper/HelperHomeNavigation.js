@@ -5,13 +5,14 @@ import { createStackNavigator } from "@react-navigation/stack";
 import ROUTES from "..";
 
 import Mapz from "../../screens/helper/Home/Map";
+import HelperMap from "../../screens/helper/Home/Map";
 const Stack = createStackNavigator();
 const HelperHomeNavigation = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen
         name={ROUTES.HELPER.LOCATION_NAVIGATION.MAP}
-        component={Mapz}
+        component={HelperMap}
       />
     </Stack.Navigator>
   );
