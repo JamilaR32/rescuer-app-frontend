@@ -66,7 +66,7 @@ const Login = () => {
         </TouchableHighlight>
 
         <View style={styles.footer}>
-          <Text>Not a user?</Text>
+          <Text style={styles.footer}>Not a user?</Text>
           {/* <Text>{user}</Text> */}
           <Pressable
             onPress={() =>
@@ -76,15 +76,17 @@ const Login = () => {
             <Text style={styles.link}>Register</Text>
           </Pressable>
         </View>
-        <View style={styles.footer}>
-          <Text>Not a helper?</Text>
-          <Pressable
-            onPress={() =>
-              navigation.navigate(ROUTES.AUTH.AUTH_NAVIGATION.HELPER_REGISTER)
-            }
-          >
-            <Text style={styles.helperLink}>Register as a helper</Text>
-          </Pressable>
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
+          <Text style={styles.footer2}>OR</Text>
+          <View style={{ flexDirection: "column" }}>
+            <Pressable
+              onPress={() =>
+                navigation.navigate(ROUTES.AUTH.AUTH_NAVIGATION.HELPER_REGISTER)
+              }
+            >
+              <Text style={styles.link}>Register as a helper</Text>
+            </Pressable>
+          </View>
         </View>
       </View>
     </View>
@@ -125,10 +127,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: 10,
     justifyContent: "center",
+    fontStyle: "italic",
+  },
+  footer2: {
+    flexDirection: "row",
+    marginTop: 10,
+    justifyContent: "center",
+    fontWeight: "bold",
   },
   link: {
     color: "#f25042",
-    marginLeft: 5,
+    marginTop: 10,
+    fontWeight: "bold",
+    fontStyle: "italic",
   },
   helperLink: {
     color: "#f25042",
