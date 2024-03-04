@@ -3,9 +3,7 @@ import {
   View,
   Text,
   TextInput,
-  Button,
   StyleSheet,
-  ScrollView,
   TouchableOpacity,
   Image,
 } from "react-native";
@@ -14,6 +12,8 @@ import { useMutation } from "@tanstack/react-query";
 import { registerHelperAPI } from "../../api/auth";
 import { jwtDecode } from "jwt-decode";
 import UserContext from "../../context/UserContext";
+import { FontAwesome } from "@expo/vector-icons";
+const logo = require("../../../assets/logo/rescLogo.png");
 
 const HelperRegister = () => {
   const [fullName, setFullName] = useState("");
@@ -94,8 +94,17 @@ const HelperRegister = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Helper Registration</Text>
+    <View style={styles.container}>
+      <Image
+        style={{
+          height: 150,
+          width: 150,
+          borderRadius: 150,
+          marginBottom: 20,
+        }}
+        source={logo}
+      />
+      {/* <Text style={styles.title}>Helper Registration</Text> */}
       <TextInput
         style={styles.input}
         placeholder="Full Name"
@@ -132,7 +141,7 @@ const HelperRegister = () => {
         style={styles.profilePictureField}
         onPress={selectImage}
       >
-        <Text style={styles.profilePictureText}>Select Profile Picture</Text>
+        <FontAwesome name="photo" size={24} color="black" />
       </TouchableOpacity>
       {profilePicture && (
         <Image source={{ uri: profilePicture }} style={styles.profileImage} />
@@ -152,8 +161,10 @@ const HelperRegister = () => {
           </TouchableOpacity>
         ))}
       </View>
-      <Button title="Register" onPress={registerHelper} />
-    </ScrollView>
+      <TouchableOpacity style={styles.registerButton} onPress={registerHelper}>
+        <Text style={styles.registerButtonText}>Register As Helper</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
@@ -161,6 +172,10 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     padding: 20,
+    backgroundColor: "#f9f4ef",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
   },
   title: {
     fontSize: 24,
@@ -173,14 +188,17 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 10,
     paddingHorizontal: 10,
+    backgroundColor: "#eaddcf",
+    width: "90%",
   },
   profilePictureField: {
-    backgroundColor: "#800080",
+    backgroundColor: "#f25042",
     alignItems: "center",
     justifyContent: "center",
     height: 40,
     marginBottom: 10,
     borderRadius: 5,
+    width: "90%",
   },
   profilePictureText: {
     color: "white",
@@ -206,11 +224,27 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     marginRight: 10,
     marginBottom: 10,
-    backgroundColor: "#eee",
+    backgroundColor: "#eaddcf",
     borderRadius: 20,
   },
   selectedSkillButton: {
-    backgroundColor: "#007bff",
+    backgroundColor: "#8c7851",
+  },
+  registerButton: {
+    backgroundColor: "#8c7851",
+    padding: 10,
+    borderRadius: 20,
+    width: "90%",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: -10,
+    marginHorizontal: 12,
+    marginBottom: 10,
+    top: 10,
+  },
+  registerButtonText: {
+    color: "#fffffe",
+    fontSize: 16,
   },
 });
 
