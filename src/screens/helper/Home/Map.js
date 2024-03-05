@@ -65,12 +65,12 @@ const HelperMap = () => {
   const longitude = location?.coords?.longitude;
   //   console.log(latitude, longitude);
 
-  //   const { mutate } = useMutation({
-  //     mutationFn: updateHelperLocation({
-  //       coordinates: [longitude, latitude],
-  //     }),
-  //     mutationKey: [`updatelocation`],
-  //   });
+  const { mutate } = useMutation({
+    mutationFn: updateHelperLocation({
+      coordinates: [longitude, latitude],
+    }),
+    mutationKey: [`updatelocation`],
+  });
 
   useEffect(() => {
     if (latitude && longitude && lock) {
