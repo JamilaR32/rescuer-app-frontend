@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import UserContext from "./src/context/UserContext";
 
 import { getToken } from "./src/api/storage";
-
+// import PasswordValidator from "./src/screens/user/Profile/PasswordValidator";
 import { jwtDecode } from "jwt-decode";
 import HelperMainNavigation from "./src/navigations/main/HelperMainNavigation";
 import UserMainNavigation from "./src/navigations/main/UserMainNavigation";
@@ -14,6 +14,7 @@ import { NativeBaseProvider } from "native-base";
 import UserProfile from "./src/screens/user/Profile/UserProfile";
 import HelperRegister from "./src/screens/auth/HelperRegister";
 import Register from "./src/screens/auth/Register";
+import HelperProfile from "./src/screens/helper/Profile/HelperProfile";
 
 export default function App() {
   const [user, setUser] = useState(false);

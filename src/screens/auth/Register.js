@@ -8,10 +8,13 @@ import { register } from "../../api/auth";
 import UserContext from "../../context/UserContext";
 import { jwtDecode } from "jwt-decode";
 import { TextInput } from "react-native";
+
 const Register = () => {
-  const navigation = useNavigation();
+  //validatePasswordStrength
   const [userInfo, setUserInfo] = useState({});
   const [user, setUser] = useContext(UserContext);
+
+  const navigation = useNavigation();
   const { mutate } = useMutation({
     mutationFn: () => register(userInfo),
     onSuccess: (data) => {
@@ -19,7 +22,40 @@ const Register = () => {
       setUser(decode);
     },
   });
+  const [strength, setStrength] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const validatePassword = (input) => {
+    let newSuggestions = [];
+    if (input.length < 8) {
+      newSuggestions.push("Password should be at least 8 characters long");
+    }
+    if (!/\d/.test(input)) {
+      newSuggestions.push("Add at least one number");
+    }
 
+    if (!/[A-Z]/.test(input) || !/[a-z]/.test(input)) {
+      newSuggestions.push("Include both upper and lower case letters");
+    }
+
+    if (!/[^A-Za-z0-9]/.test(input)) {
+      newSuggestions.push("Include at least one special character");
+    }
+
+    setSuggestions(newSuggestions);
+
+    // Determine password strength based on suggestions
+    if (newSuggestions.length === 0) {
+      setStrength("Very Strong");
+    } else if (newSuggestions.length <= 1) {
+      setStrength("Strong");
+    } else if (newSuggestions.length <= 2) {
+      setStrength("Moderate");
+    } else if (newSuggestions.length <= 3) {
+      setStrength("Weak");
+    } else {
+      setStrength("Too Weak");
+    }
+  };
   return (
     <View style={styles.container}>
       <Image
@@ -58,12 +94,53 @@ const Register = () => {
       />
       <Text style={styles.label}>Password</Text>
       <TextInput
+        secureTextEntry="true"
+        textContentType="password"
         style={styles.input}
         placeholder="Enter your password"
         onChangeText={(text) => {
           setUserInfo({ ...userInfo, password: text });
+          validatePassword(text);
         }}
       />
+      <Text style={styles2.strengthText}> {strength}</Text>
+
+      <Text style={styles2.suggestionsText}>
+        {suggestions.map((suggestion, index) => (
+          <Text key={index}>
+            {suggestion}
+            {"\n"}
+          </Text>
+        ))}
+      </Text>
+      <View style={styles2.strengthMeter}>
+        <View
+          style={{
+            width: `${
+              strength === "Very Strong"
+                ? 100
+                : strength === "Strong"
+                ? 75
+                : strength === "Moderate"
+                ? 50
+                : strength === "Weak"
+                ? 25
+                : 0
+            }%`,
+            height: 20,
+            backgroundColor:
+              strength === "Too Weak"
+                ? "red"
+                : strength === "Weak"
+                ? "orange"
+                : strength === "Moderate"
+                ? "yellow"
+                : strength === "Strong"
+                ? "green"
+                : "limegreen",
+          }}
+        ></View>
+      </View>
 
       <TouchableOpacity style={styles.registerButton} onPress={mutate}>
         <Text style={styles.registerButtonText}>Register</Text>
@@ -157,5 +234,42 @@ const styles = StyleSheet.create({
   registerButtonText: {
     color: "#fffffe",
     fontSize: 16,
+  },
+});
+const styles2 = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+  },
+  Heading: {
+    marginTop: 40,
+    padding: 40,
+  },
+  HeadingText: {
+    fontSize: 25,
+    alignItems: "center",
+    fontWeight: "bold",
+  },
+  textInput: {
+    borderWidth: 1,
+    width: 300,
+    padding: 10,
+    marginBottom: 10,
+  },
+  strengthText: {
+    fontWeight: "bold",
+    fontSize: 18,
+    color: "#007700",
+  },
+  suggestionsText: {
+    color: "red",
+  },
+  strengthMeter: {
+    width: "80%",
+    height: 20,
+    backgroundColor: "#ccc",
+    marginTop: 20,
+    borderRadius: 10,
+    overflow: "hidden",
   },
 });
