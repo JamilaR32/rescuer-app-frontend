@@ -5,7 +5,7 @@ import { getAllRequests, pastRequests } from "../../../api/requests";
 
 const History = () => {
   const { data, isLoading, error } = useQuery({
-    queryKey: ["requestzzz"],
+    queryKey: ["history"],
     queryFn: () => pastRequests(),
   });
 

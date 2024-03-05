@@ -1,23 +1,77 @@
-import React from "react";
-import { View, Text, ScrollView, StyleSheet, SafeAreaView } from "react-native";
-import { useQuery } from "@tanstack/react-query";
-import { getAllRequests } from "../../../api/requests";
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  SafeAreaView,
+  TouchableOpacity,
+} from "react-native";
+import * as Location from "expo-location";
+
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { acceptRequest, getAllRequests } from "../../../api/requests";
 
 const Requests = () => {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["requestzzz"],
+  const [location, setLocation] = useState(null);
+
+  const { data, isLoading, error, refetch } = useQuery({
+    queryKey: ["requests"],
     queryFn: () => getAllRequests(),
   });
+  // sldksl
+  // const { mutate } = useMutation({
+  //   mutationFn: (e) =>
+  //     createRequest({
+  //       location: { type: "Point", coordinates: [longitude, latitude] },
+  //       case: e,
+  //     }),
+  //   mutationKey: [`createRequest`],
+  //   onSuccess: () => {
+  //     toggleMenu();
+  //   },
+  // });
 
-  console.log("updateeee", data);
+  const { mutate } = useMutation({
+    mutationKey: ["acceptRequest"],
+    mutationFn: ({ e, latitude, longitude }) => {
+      return acceptRequest(e, latitude, longitude);
+    },
+    onSuccess: () => {
+      refetch();
+    },
+  });
 
-  // if (isLoading) {
-  //   return <Text>Loading...</Text>;
-  // }
+  useEffect(() => {
+    let intervalId;
 
-  // if (error) {
-  //   return <Text>Error: {error.message}</Text>;
-  // }
+    const fetchLocation = async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        console.log("Permission to access location was denied");
+        return;
+      }
+      const loc = await Location.getCurrentPositionAsync({});
+      setLocation(loc);
+    };
+
+    fetchLocation(); // Fetch immediately on component mount
+
+    intervalId = setInterval(() => {
+      fetchLocation(); // Fetch every second
+    }, 1000); // Updated to fetch every 1000ms or every second
+
+    return () => {
+      clearInterval(intervalId); // Clear interval on component unmount
+    };
+  }, []);
+
+  const latitude = location?.coords?.latitude;
+  const longitude = location?.coords?.longitude;
+  const handleAccept = (e) => {
+    mutate({ e, latitude, longitude });
+  };
+  // console.log(latitude, longitude);
 
   return (
     <SafeAreaView>
@@ -31,6 +85,23 @@ const Requests = () => {
             <Text>
               Created At: {new Date(request.createdAt).toLocaleString()}
             </Text>
+            <TouchableOpacity
+              onPress={() => {
+                handleAccept(request._id);
+              }}
+              style={{
+                width: 100,
+                height: 25,
+                paddingHorizontal: 12,
+                backgroundColor: "#00000040",
+                borderRadius: 6,
+                justifyContent: "center",
+                alignItems: "center",
+                marginLeft: "auto",
+              }}
+            >
+              <Text>Accept</Text>
+            </TouchableOpacity>
           </View>
         ))}
       </ScrollView>
