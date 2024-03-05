@@ -39,7 +39,7 @@ const HelperMap = () => {
     const fetchLocation = async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
-        console.log("Permission to access location was denied");
+        // //console.log("Permission to access location was denied");
         return;
       }
       const loc = await Location.getCurrentPositionAsync({});
@@ -76,7 +76,7 @@ const HelperMap = () => {
     queryKey: ["checkRequest"],
     queryFn: () => checkRequest(),
   });
-  // console.log(data);
+  // //console.log(data);
   const menuItems = [
     { id: 1, title: "Item 1" },
     { id: 2, title: "Item 2" },

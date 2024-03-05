@@ -30,11 +30,11 @@ const Login = () => {
     },
   });
   const handleRegisterHelper = () => {
-    console.log("Register as a helper button pressed");
-    console.log("Navigation object:", navigation);
+    //console.log("Register as a helper button pressed");
+    //console.log("Navigation object:", navigation);
     navigation.navigate(ROUTES.AUTH.AUTH_NAVIGATION.REGISTER_HELPER);
   };
-  console.log("User info:", userInfo);
+  //console.log("User info:", userInfo);
 
   return (
     <View style={styles.container}>

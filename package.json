@@ -18,10 +18,14 @@
     "@tanstack/react-query": "^5.21.7",
     "axios": "^1.6.7",
     "core-js": "^3.36.0",
+    "eas-cli": "^7.3.0",
     "expo": "~50.0.7",
+    "expo-constants": "~15.4.5",
+    "expo-device": "~5.9.3",
     "expo-font": "~11.10.3",
     "expo-image-picker": "~14.7.1",
     "expo-location": "~16.5.3",
+    "expo-notifications": "~0.27.6",
     "expo-secure-store": "~12.8.1",
     "expo-status-bar": "~1.11.1",
     "jwt-decode": "^4.0.0",
@@ -32,8 +36,7 @@
     "react-native-image-picker": "^7.1.0",
     "react-native-maps": "^1.10.3",
     "react-native-paper": "^5.12.3",
-    "react-native-vector-icons": "^10.0.3",
-    "expo-notifications": "~0.27.6"
+    "react-native-vector-icons": "^10.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

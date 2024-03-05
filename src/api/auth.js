@@ -17,7 +17,7 @@ const login = async (userInfo) => {
   const res = await instance.post("/login", userInfo);
   const token = res.data.token;
   if (token) {
-    console.log("saving the token");
+    //console.log("saving the token");
     saveToken(token);
   }
 

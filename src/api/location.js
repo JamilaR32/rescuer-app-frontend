@@ -1,9 +1,9 @@
 import { instance } from ".";
 
 const nearbyRequests = async () => {
-  console.log("first");
+  //console.log("first");
   const { data } = await instance.get("/nearestRequest");
-  //   console.log("teesttt", data);
+  //   //console.log("teesttt", data);
   return data;
 };
 

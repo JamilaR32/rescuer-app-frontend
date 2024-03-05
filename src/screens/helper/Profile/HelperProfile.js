@@ -8,7 +8,7 @@ import {
 import React, { useContext, useEffect, useState } from "react";
 import { deleteToken } from "../../../api/storage";
 import UserContext from "../../../context/UserContext";
-import { editUserProfile } from "../../../api/auth";
+import { editUserProfile, me } from "../../../api/auth";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Octicons } from "@expo/vector-icons";
 import { COLORS, FONTS } from "../../../constants/Theme";
@@ -16,7 +16,7 @@ import { TextInput } from "react-native";
 import { Image } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { MaterialIcons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/core";
+import { BASE_URL2 } from "../../../api";
 const HelperProfile = () => {
   const [user, setUser] = useContext(UserContext);
   const [edit, setEdit] = useState(false);
@@ -25,12 +25,12 @@ const HelperProfile = () => {
   const [civilId, setCivilId] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [image, setImage] = useState("");
-  // const navigation = useNavigation();
+
   const { data } = useQuery({
     queryKey: ["myInfo2"],
     queryFn: () => me(),
   });
-
+  //console.log(data);
   useEffect(() => {
     if (data) {
       setCivilId(data?.civilId);
@@ -61,7 +61,7 @@ const HelperProfile = () => {
       aspect: [4, 3],
       quality: 1,
     });
-    console.log(result);
+    //console.log(result);
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);
@@ -72,6 +72,8 @@ const HelperProfile = () => {
     deleteToken();
     setUser(null);
   };
+
+  console.log(`${BASE_URL2}/${image}`);
   return (
     <View style={styles.container}>
       <View
@@ -131,7 +133,7 @@ const HelperProfile = () => {
         >
           <TouchableOpacity onPress={selectImage}>
             <Image
-              source={{ uri: image }}
+              source={{ uri: `${BASE_URL2}/${image}` }}
               style={{
                 height: 170,
                 width: 170,

@@ -9,7 +9,7 @@ const History = () => {
     queryFn: () => pastRequests(),
   });
 
-  console.log("updateeee", data);
+  // //console.log("updateeee", data);
 
   // if (isLoading) {
   //   return <Text>Loading...</Text>;

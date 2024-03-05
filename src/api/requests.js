@@ -7,7 +7,7 @@ const pastRequests = async () => {
 // need a lot of work
 const getAllRequests = async () => {
   const { data } = await instance.get("/requests");
-  console.log("data", data);
+  // //console.log("data", data);
   return data;
 };
 const createRequest = async (userInfo) => {
