@@ -27,7 +27,7 @@ const HelperProfile = () => {
   const [image, setImage] = useState("");
   // const navigation = useNavigation();
   const { data } = useQuery({
-    queryKey: ["myInfo"],
+    queryKey: ["myInfo2"],
     queryFn: () => me(),
   });
 
@@ -37,7 +37,7 @@ const HelperProfile = () => {
       setName(data?.fullName);
       setPhoneNumber(data?.phoneNumber);
       setPassword(data?.password);
-      setImage(data?.image);
+      setImage(data?.helper.image);
     }
   }, [data]);
 
