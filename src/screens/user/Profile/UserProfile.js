@@ -10,7 +10,6 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { editUserProfile, getAllUsers, me } from "../../../api/auth";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import ROUTES from "../../../navigations";
 import { COLORS, FONTS } from "../../../constants/Theme";
 import UserContext from "../../../context/UserContext";
 import { deleteToken } from "../../../api/storage";
@@ -74,6 +73,29 @@ const UserProfile = () => {
         >
           <Octicons name="sign-out" size={24} color="black" />
         </TouchableOpacity>
+      </View>
+      <View
+        style={{
+          marginHorizontal: 12,
+          flexDirection: "row",
+          justifyContent: "center",
+        }}
+      >
+        {/* <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{
+            position: "absolute",
+            left: 0,
+          }}
+        >
+          <MaterialIcons
+            name="keyboard-arrow-left"
+            size={24}
+            color={COLORS.black}
+          />
+        </TouchableOpacity> */}
+
+        <Text style={styles.title}>Edit Profile</Text>
       </View>
       <View
         style={{
@@ -301,5 +323,11 @@ const styles = StyleSheet.create({
   saveButtonText: {
     color: "#fffffe",
     fontSize: 16,
+  },
+  title: {
+    color: "#8c7851",
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
   },
 });

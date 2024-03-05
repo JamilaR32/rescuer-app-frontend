@@ -6,13 +6,14 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
+  ScrollView,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { useMutation } from "@tanstack/react-query";
 import { registerHelperAPI } from "../../api/auth";
 import { jwtDecode } from "jwt-decode";
 import UserContext from "../../context/UserContext";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 const logo = require("../../../assets/logo/rescLogo.png");
 
 const HelperRegister = () => {
@@ -23,7 +24,6 @@ const HelperRegister = () => {
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [profilePicture, setProfilePicture] = useState(null);
   const [civilId, setCivilId] = useState("");
-
   const [user, setUser] = useContext(UserContext);
   const { mutate } = useMutation({
     mutationKey: ["registerHelper"],
@@ -95,7 +95,7 @@ const HelperRegister = () => {
 
   return (
     <View style={styles.container}>
-      <Image
+      {/* <Image
         style={{
           height: 150,
           width: 150,
@@ -103,67 +103,93 @@ const HelperRegister = () => {
           marginBottom: 20,
         }}
         source={logo}
-      />
+      /> */}
+
       {/* <Text style={styles.title}>Helper Registration</Text> */}
-      <TextInput
-        style={styles.input}
-        placeholder="Full Name"
-        value={fullName}
-        onChangeText={(text) => setFullName(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Civil ID"
-        value={civilId}
-        onChangeText={(text) => setCivilId(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Phone Number"
-        value={phoneNumber}
-        onChangeText={(text) => setPhoneNumber(text)}
-        keyboardType="phone-pad"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={(text) => setPassword(text)}
-        secureTextEntry
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Plate Number"
-        value={plateNumber}
-        onChangeText={(text) => setPlateNumber(text)}
-      />
-      <TouchableOpacity
-        style={styles.profilePictureField}
-        onPress={selectImage}
-      >
-        <FontAwesome name="photo" size={24} color="black" />
+      <TouchableOpacity onPress={selectImage}>
+        {/* {profilePicture && (
+          )} */}
+        <Image
+          source={{ uri: profilePicture }}
+          style={{
+            height: 170,
+            width: 170,
+            borderRadius: 85,
+            borderWidth: 0.5,
+            borderColor: "#8c7851",
+            marginTop: 30,
+            marginBottom: 20,
+          }}
+        />
+        <View
+          style={{
+            position: "absolute",
+            bottom: 50,
+            top: 80,
+            right: 48,
+            zIndex: 9999,
+          }}
+        >
+          <MaterialIcons name="photo-camera" size={80} color="gray" />
+        </View>
       </TouchableOpacity>
-      {profilePicture && (
-        <Image source={{ uri: profilePicture }} style={styles.profileImage} />
-      )}
-      <Text style={styles.skillTitle}>Select Skills:</Text>
-      <View style={styles.skillsContainer}>
-        {skills.map((skill) => (
-          <TouchableOpacity
-            key={skill}
-            style={[
-              styles.skillButton,
-              selectedSkills.includes(skill) && styles.selectedSkillButton,
-            ]}
-            onPress={() => toggleSkill(skill)}
-          >
-            <Text>{skill}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-      <TouchableOpacity style={styles.registerButton} onPress={registerHelper}>
-        <Text style={styles.registerButtonText}>Register As Helper</Text>
-      </TouchableOpacity>
+
+      <ScrollView>
+        <TextInput
+          style={styles.input}
+          placeholder="Full Name"
+          value={fullName}
+          onChangeText={(text) => setFullName(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Civil ID"
+          value={civilId}
+          onChangeText={(text) => setCivilId(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Phone Number"
+          value={phoneNumber}
+          onChangeText={(text) => setPhoneNumber(text)}
+          keyboardType="phone-pad"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          value={password}
+          onChangeText={(text) => setPassword(text)}
+          secureTextEntry
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Plate Number"
+          value={plateNumber}
+          onChangeText={(text) => setPlateNumber(text)}
+        />
+
+        <Text style={styles.skillTitle}>Select Skills:</Text>
+        <View style={styles.skillsContainer}>
+          {skills.map((skill) => (
+            <TouchableOpacity
+              key={skill}
+              style={[
+                styles.skillButton,
+                selectedSkills.includes(skill) && styles.selectedSkillButton,
+              ]}
+              onPress={() => toggleSkill(skill)}
+            >
+              <Text>{skill}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+        <TouchableOpacity
+          style={styles.registerButton}
+          onPress={registerHelper}
+        >
+          <Text style={styles.registerButtonText}>Register As Helper</Text>
+        </TouchableOpacity>
+      </ScrollView>
     </View>
   );
 };
@@ -189,7 +215,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
     backgroundColor: "#eaddcf",
-    width: "90%",
+    width: "100%",
   },
   profilePictureField: {
     backgroundColor: "#f25042",
@@ -198,7 +224,6 @@ const styles = StyleSheet.create({
     height: 40,
     marginBottom: 10,
     borderRadius: 5,
-    width: "90%",
   },
   profilePictureText: {
     color: "white",
@@ -218,6 +243,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     marginBottom: 20,
+    justifyContent: "center",
   },
   skillButton: {
     paddingHorizontal: 12,
