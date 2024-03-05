@@ -25,7 +25,7 @@ const HelperMap = () => {
   //     queryKey: ["test222"],
   //     queryFn: nearbyRequests(),
   //   });
-  //   console.log("Test", data);
+  //   //console.log("Test", data);
 
   const toggleMenu = () => {
     const itemHeight = 50; // Adjust based on your actual item height
@@ -44,7 +44,7 @@ const HelperMap = () => {
     const fetchLocation = async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
-        console.log("Permission to access location was denied");
+        // //console.log("Permission to access location was denied");
         return;
       }
       const loc = await Location.getCurrentPositionAsync({});
@@ -63,7 +63,7 @@ const HelperMap = () => {
   }, []);
   const latitude = location?.coords?.latitude;
   const longitude = location?.coords?.longitude;
-  //   console.log(latitude, longitude);
+  //   //console.log(latitude, longitude);
 
   const { mutate } = useMutation({
     mutationFn: updateHelperLocation({

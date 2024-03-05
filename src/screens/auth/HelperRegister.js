@@ -13,8 +13,7 @@ import { useMutation } from "@tanstack/react-query";
 import { registerHelperAPI } from "../../api/auth";
 import { jwtDecode } from "jwt-decode";
 import UserContext from "../../context/UserContext";
-import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
-const logo = require("../../../assets/logo/rescLogo.png");
+import { MaterialIcons } from "@expo/vector-icons";
 
 const HelperRegister = () => {
   const [fullName, setFullName] = useState("");
@@ -31,7 +30,7 @@ const HelperRegister = () => {
     onSuccess: (data) => {
       const token = data.token;
       const decode = jwtDecode(token);
-      console.log(decode);
+      //console.log(decode);
       setUser(decode);
     },
   });
@@ -69,7 +68,7 @@ const HelperRegister = () => {
       quality: 1,
     });
 
-    console.log(result);
+    //console.log(result);
 
     if (!result.canceled) {
       setProfilePicture(result.assets[0].uri);
@@ -324,7 +323,7 @@ export default HelperRegister;
 //       if (!response.ok) {
 //         return Error("Registration failed");
 //       } else {
-//         console.log("Helper register successfully");
+//         //console.log("Helper register successfully");
 //       }
 //       // //check fix
 
@@ -332,9 +331,9 @@ export default HelperRegister;
 //       //     Error('Registration failed');
 //       // }
 
-//       // console.log('Helper register successfully');
+//       // //console.log('Helper register successfully');
 //     } catch (error) {
-//       console.log("Error registering helper", error.message);
+//       //console.log("Error registering helper", error.message);
 //     }
 //   };
 // //image, phone number, password
@@ -351,7 +350,7 @@ export default HelperRegister;
 //         <Text style={{ fontSize: 24, marginBottom: 20 }}>
 //           Helper Registration
 //         </Text>
-//         <TouchableOpacity onPress={() => console.log("Open image picker")}>
+//         <TouchableOpacity onPress={() => //console.log("Open image picker")}>
 //           {profilePicture ? (
 //             <Image
 //               source={{ uri: profilePicture }}
