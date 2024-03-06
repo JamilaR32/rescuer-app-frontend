@@ -150,18 +150,9 @@ const HelperMap = () => {
             { backgroundColor: isLive ? "#00ff00" : "#ff0000" },
           ]}
         >
-          <Text style={styles.buttonText}>
+          <Text style={[styles.buttonText1, isLive ? styles.liveText : null]}>
             {isLive ? "Go Offline" : "Go Live"}
           </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => mutate}
-          style={[
-            styles.liveButton,
-            { backgroundColor: isLive ? "#00ff00" : "#ff0000" },
-          ]}
-        >
-          <Text style={styles.buttonText}>Test</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -199,5 +190,16 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "#fff",
+  },
+  buttonText1: {
+    // Add your default styles for the button text here
+    // For example:
+    fontSize: 16,
+    color: "white",
+    // Add other styles as needed
+  },
+  liveText: {
+    color: "black", // Set the color to black when live
+    // You can add more styles specific to live text here if needed
   },
 });

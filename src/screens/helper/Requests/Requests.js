@@ -119,7 +119,8 @@ const Requests = () => {
               <Text style={styles.title}>Case: {request.case}</Text>
               <Text>Status: {request.status}</Text>
               <Text>Location: {request.location.coordinates.join(", ")}</Text>
-              <Text>Helper: {request.user.fullName}</Text>
+
+              <Text>User: {request.user.fullName}</Text>
               <Text>
                 Created At: {new Date(request.createdAt).toLocaleString()}
               </Text>
