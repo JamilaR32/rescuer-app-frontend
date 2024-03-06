@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   View,
   Animated,
+  Image,
 } from "react-native";
 import MapView, { Circle, Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import * as Location from "expo-location";
@@ -56,7 +57,7 @@ const HelperMap = () => {
 
     intervalId = setInterval(() => {
       fetchLocation(); // Fetch every second
-    }, 5000); // Updated to fetch every 1000ms or every second
+    }, 1000); // Updated to fetch every 1000ms or every second
 
     return () => {
       clearInterval(intervalId); // Clear interval on component unmount
@@ -118,7 +119,12 @@ const HelperMap = () => {
         <Marker
           onPress={() => setLock(!lock)}
           coordinate={{ latitude: latitude ?? 0, longitude: longitude ?? 0 }}
-        />
+        >
+          <Image
+            source={require("../../../../assets/images/car.png")}
+            style={{ width: 40, height: 40 }}
+          />
+        </Marker>
         <Circle
           center={{ latitude: latitude ?? 0, longitude: longitude ?? 0 }}
           radius={200}
