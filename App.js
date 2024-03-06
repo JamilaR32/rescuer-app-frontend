@@ -15,16 +15,19 @@ import UserProfile from "./src/screens/user/Profile/UserProfile";
 import HelperRegister from "./src/screens/auth/HelperRegister";
 import Register from "./src/screens/auth/Register";
 import HelperProfile from "./src/screens/helper/Profile/HelperProfile";
+import { LogBox } from "react-native";
+
+LogBox.ignoreAllLogs(true);
 
 export default function App() {
   const [user, setUser] = useState(false);
 
   useEffect(() => {
     const checkToken = async () => {
-      console.log("checking token");
+      //console.log("checking token");
       const token = await getToken();
       if (token) {
-        console.log("there is token");
+        //console.log("there is token");
         const decode = jwtDecode(token);
         setUser(decode);
       }

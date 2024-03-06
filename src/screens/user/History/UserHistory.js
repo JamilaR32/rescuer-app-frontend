@@ -1,14 +1,67 @@
-import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { View, Text, ScrollView, StyleSheet, SafeAreaView } from "react-native";
+import { useQuery } from "@tanstack/react-query";
+import { pastRequests } from "../../../api/requests";
+import { getUserByHelperId } from "../../../api/auth";
 
 const UserHistory = () => {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["requests"],
+    queryFn: () => pastRequests(),
+  });
+  const { data: HelperInfo } = useQuery({
+    queryKey: ["userId"],
+    queryFn: () => getUserByHelperId(_id),
+  });
+
+  //console.log(HelperInfo);
+  const getUserByHelper = (id) => {
+    const user = data(id);
+    return user;
+  };
+  const filteredRequests = data?.filter(
+    (request) => request.status === "close"
+  );
+
   return (
-    <View>
-      <Text>UserHistory</Text>
-    </View>
+    <SafeAreaView>
+      <ScrollView>
+        {filteredRequests?.map((request, index) => (
+          <View key={index} style={styles.card}>
+            <Text style={styles.title}>Case: {request.case}</Text>
+            <Text>Status: {request.status}</Text>
+            <Text>Location: {request.location.coordinates.join(", ")}</Text>
+            <Text>Helper: {request.helper}</Text>
+            <Text>
+              Created At: {new Date(request.createdAt).toLocaleString()}
+            </Text>
+          </View>
+        ))}
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
-export default UserHistory;
+const styles = StyleSheet.create({
+  card: {
+    backgroundColor: "#fff",
+    borderRadius: 8,
+    padding: 15,
+    marginBottom: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 5,
+  },
+});
 
-const styles = StyleSheet.create({});
+export default UserHistory;

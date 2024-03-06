@@ -20,12 +20,13 @@ const HelperMap = () => {
   const [isLive, setIsLive] = useState(false); // State to manage live status
   const animationHeight = useRef(new Animated.Value(0)).current;
   const [userInfo, setUserInfo] = useState({});
+  const [alreadyDone, setAlreadyDone] = useState(false);
 
   //   const { data } = useQuery({
   //     queryKey: ["test222"],
   //     queryFn: nearbyRequests(),
   //   });
-  //   console.log("Test", data);
+  //   //console.log("Test", data);
 
   const toggleMenu = () => {
     const itemHeight = 50; // Adjust based on your actual item height
@@ -44,7 +45,7 @@ const HelperMap = () => {
     const fetchLocation = async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
-        console.log("Permission to access location was denied");
+        //console.log("Permission to access location was denied");
         return;
       }
       const loc = await Location.getCurrentPositionAsync({});
@@ -63,7 +64,7 @@ const HelperMap = () => {
   }, []);
   const latitude = location?.coords?.latitude;
   const longitude = location?.coords?.longitude;
-  //   console.log(latitude, longitude);
+  //   //console.log(latitude, longitude);
 
   const { mutate } = useMutation({
     mutationFn: updateHelperLocation({
@@ -83,13 +84,30 @@ const HelperMap = () => {
       mapRef.current.animateToRegion(newRegion, 0);
     }
   }, [location, lock]);
-
+  useEffect(() => {
+    if (location && !alreadyDone) {
+      const newRegion = {
+        latitude,
+        longitude,
+        latitudeDelta: zoomInfo.latitudeDelta || 0.0922, // Provide default values
+        longitudeDelta: zoomInfo.longitudeDelta || 0.0421,
+      };
+      mapRef.current.animateToRegion(newRegion, 0);
+      setAlreadyDone(true);
+    }
+  }, [location]);
   return (
     <View style={styles.container}>
       <MapView
         provider={PROVIDER_GOOGLE}
         style={styles.map}
         ref={mapRef}
+        onRegionChange={(r) => {
+          setZoomInfo({
+            latitudeDelta: r.latitudeDelta,
+            longitudeDelta: r.longitudeDelta,
+          });
+        }}
         initialRegion={{
           latitude: latitude ?? 0,
           longitude: longitude ?? 0,

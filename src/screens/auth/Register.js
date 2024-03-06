@@ -94,7 +94,7 @@ const Register = () => {
       />
       <Text style={styles.label}>Password</Text>
       <TextInput
-        secureTextEntry="true"
+        secureTextEntry
         textContentType="password"
         style={styles.input}
         placeholder="Enter your password"

@@ -3,13 +3,13 @@ import { View, Text, ScrollView, StyleSheet, SafeAreaView } from "react-native";
 import { useQuery } from "@tanstack/react-query";
 import { getAllRequests, pastRequests } from "../../../api/requests";
 
-const History = () => {
+const HelperHistory = () => {
   const { data, isLoading, error } = useQuery({
-    queryKey: ["history"],
+    queryKey: ["requests"],
     queryFn: () => pastRequests(),
   });
 
-  console.log("updateeee", data);
+  //console.log("updateeee", data);
 
   // if (isLoading) {
   //   return <Text>Loading...</Text>;
@@ -64,4 +64,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default History;
+export default HelperHistory;

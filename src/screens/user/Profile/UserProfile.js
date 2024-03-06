@@ -205,7 +205,7 @@ const UserProfile = () => {
             }}
           >
             <TextInput
-              value={password}
+              value={edit ? password : password.slice(0, 12)}
               onChangeText={(value) => setPassword(value)}
               editable={edit}
               secureTextEntry

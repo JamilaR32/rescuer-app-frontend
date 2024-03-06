@@ -8,7 +8,7 @@ import {
 import React, { useContext, useEffect, useState } from "react";
 import { deleteToken } from "../../../api/storage";
 import UserContext from "../../../context/UserContext";
-import { editUserProfile } from "../../../api/auth";
+import { editUserProfile, me } from "../../../api/auth";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Octicons } from "@expo/vector-icons";
 import { COLORS, FONTS } from "../../../constants/Theme";
@@ -17,6 +17,7 @@ import { Image } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
+import { BASE_URL, BASE_URL2 } from "../../../api";
 const HelperProfile = () => {
   const [user, setUser] = useContext(UserContext);
   const [edit, setEdit] = useState(false);
@@ -37,7 +38,7 @@ const HelperProfile = () => {
       setName(data?.fullName);
       setPhoneNumber(data?.phoneNumber);
       setPassword(data?.password);
-      setImage(data?.image);
+      setImage(data?.helper.image);
     }
   }, [data]);
 
@@ -61,7 +62,7 @@ const HelperProfile = () => {
       aspect: [4, 3],
       quality: 1,
     });
-    console.log(result);
+    //console.log(result);
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);
@@ -72,6 +73,7 @@ const HelperProfile = () => {
     deleteToken();
     setUser(null);
   };
+  console.log(image);
   return (
     <View style={styles.container}>
       <View
@@ -130,16 +132,21 @@ const HelperProfile = () => {
           }}
         >
           <TouchableOpacity onPress={selectImage}>
-            <Image
-              source={{ uri: image }}
-              style={{
-                height: 170,
-                width: 170,
-                borderRadius: 85,
-                borderWidth: 0.5,
-                borderColor: "#8c7851",
-              }}
-            />
+            {image && (
+              <Image
+                source={{
+                  uri: image.includes("file") ? image : `${BASE_URL2}/${image}`,
+                }}
+                style={{
+                  height: 170,
+                  width: 170,
+                  borderRadius: 85,
+                  borderWidth: 0.5,
+                  borderColor: "#8c7851",
+                  resizeMode: "contain",
+                }}
+              />
+            )}
             <View
               style={{
                 position: "absolute",
