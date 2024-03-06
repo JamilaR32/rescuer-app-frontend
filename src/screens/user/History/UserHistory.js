@@ -16,15 +16,31 @@ const UserHistory = () => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView>
+      <ScrollView style={{ padding: 14, backgroundColor: "#f9f4ef" }}>
         {filteredRequests?.map((request, index) => (
           <View key={index} style={styles.card}>
             <Text style={styles.title}>Case: {request.case}</Text>
-            <Text>Status: {request.status}</Text>
-            <Text>Location: {request.location.coordinates.join(", ")}</Text>
-            <Text>Helper: {request.helper?.user?.fullName}</Text>
-            <Text>
-              Created At: {new Date(request.createdAt).toLocaleString()}
+            <Text style={styles.subtitle}>
+              Status:
+              <Text style={{ fontWeight: "normal" }}> {request.status} </Text>
+            </Text>
+            <Text style={styles.subtitle}>
+              Location:{" "}
+              <Text style={{ fontWeight: "normal" }}>
+                {request.location.coordinates.join(", ")}
+              </Text>
+            </Text>
+            <Text style={styles.subtitle}>
+              Helper:{" "}
+              <Text style={{ fontWeight: "normal" }}>
+                {request.helper?.user?.fullName}
+              </Text>
+            </Text>
+            <Text style={styles.subtitle}>
+              Created At:{" "}
+              <Text style={{ fontWeight: "normal" }}>
+                {new Date(request.createdAt).toLocaleString()}
+              </Text>
             </Text>
           </View>
         ))}
@@ -35,7 +51,7 @@ const UserHistory = () => {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#fff",
+    backgroundColor: "#eaddcf",
     borderRadius: 8,
     padding: 15,
     marginBottom: 10,
@@ -52,6 +68,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 5,
+  },
+  subtitle: {
+    fontWeight: "bold",
   },
 });
 

@@ -32,9 +32,14 @@ const UserMainNavigation = () => {
         component={UserHomeNavigation}
         options={{
           tabBarShowLabel: false,
-          title: "Home",
-          tabBarIcon: () => (
-            <MaterialCommunityIcons name="home" size={24} color="black" />
+          title: "HELP",
+
+          tabBarIcon: ({ focused }) => (
+            <MaterialIcons
+              name="sos"
+              size={24}
+              color={focused ? "white" : "black"}
+            />
           ),
         }}
       />
@@ -44,8 +49,12 @@ const UserMainNavigation = () => {
         options={{
           tabBarShowLabel: false,
           title: "History",
-          tabBarIcon: () => (
-            <MaterialCommunityIcons name="history" size={24} color="black" />
+          tabBarIcon: ({ focused }) => (
+            <MaterialCommunityIcons
+              name="history"
+              size={24}
+              color={focused ? "white" : "black"}
+            />
           ),
         }}
       />
@@ -55,8 +64,12 @@ const UserMainNavigation = () => {
         options={{
           tabBarShowLabel: false,
           title: "Profile",
-          tabBarIcon: () => (
-            <MaterialCommunityIcons name="account" size={24} color="black" />
+          tabBarIcon: ({ focused }) => (
+            <MaterialCommunityIcons
+              name="account"
+              size={24}
+              color={focused ? "white" : "black"}
+            />
           ),
         }}
       />

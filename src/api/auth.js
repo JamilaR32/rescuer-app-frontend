@@ -61,7 +61,7 @@ const registerHelperAPI = async (userInfo) => {
 };
 
 const editUserProfile = async (userInfo) => {
-  const res = await instance.put("/profile/:userId", userInfo);
+  const res = await instance.put("/profile", userInfo);
   const token = res.data.token;
   if (token) {
     saveToken(token);

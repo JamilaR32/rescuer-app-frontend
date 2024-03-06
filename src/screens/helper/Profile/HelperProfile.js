@@ -18,6 +18,8 @@ import * as ImagePicker from "expo-image-picker";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import { BASE_URL, BASE_URL2 } from "../../../api";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
 const HelperProfile = () => {
   const [user, setUser] = useContext(UserContext);
   const [edit, setEdit] = useState(false);
@@ -54,6 +56,7 @@ const HelperProfile = () => {
       });
     },
   });
+
   const selectImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -172,7 +175,11 @@ const HelperProfile = () => {
                 setEdit(!edit);
               }}
             >
-              <Text style={styles.saveButtonText}>Edit</Text>
+              <MaterialCommunityIcons
+                name="lead-pencil"
+                size={24}
+                color="black"
+              />
             </TouchableOpacity>
 
             <Text style={{ ...FONTS.h4 }}>Full Name</Text>
@@ -230,7 +237,7 @@ const HelperProfile = () => {
             }}
           >
             <Text style={{ ...FONTS.h4 }}>Password</Text>
-            <View
+            {/* <View
               style={{
                 height: 44,
                 width: "100%",
@@ -248,7 +255,7 @@ const HelperProfile = () => {
                 editable={edit}
                 secureTextEntry
               />
-            </View>
+            </View> */}
           </View>
 
           <View
