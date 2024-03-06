@@ -65,9 +65,9 @@ const Login = () => {
           <Text style={styles.loginButtonText}>Login</Text>
         </TouchableHighlight>
 
-        <View style={styles.footer}>
-          <Text style={styles.footer}>Not a user?</Text>
-          {/* <Text>{user}</Text> */}
+        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+          <Text style={styles.footer}>Not a user? </Text>
+
           <Pressable
             onPress={() =>
               navigation.navigate(ROUTES.AUTH.AUTH_NAVIGATION.REGISTER)
@@ -75,18 +75,17 @@ const Login = () => {
           >
             <Text style={styles.link}>Register</Text>
           </Pressable>
+          <Text style={styles.footer2}> OR</Text>
+          <Pressable
+            onPress={() =>
+              navigation.navigate(ROUTES.AUTH.AUTH_NAVIGATION.HELPER_REGISTER)
+            }
+          >
+            <Text style={styles.helperLink}>Register as a helper</Text>
+          </Pressable>
         </View>
         <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <Text style={styles.footer2}>OR</Text>
-          <View style={{ flexDirection: "column" }}>
-            <Pressable
-              onPress={() =>
-                navigation.navigate(ROUTES.AUTH.AUTH_NAVIGATION.HELPER_REGISTER)
-              }
-            >
-              <Text style={styles.link}>Register as a helper</Text>
-            </Pressable>
-          </View>
+          <View></View>
         </View>
       </View>
     </View>
@@ -106,20 +105,21 @@ const styles = StyleSheet.create({
   input: {
     borderColor: "black",
     borderWidth: 0.5,
-    borderRadius: 20,
-    width: "80%",
+    borderRadius: 10,
+    width: "90%",
     padding: 10,
     marginVertical: 10, // Adds space above and below the input
     backgroundColor: "#eaddcf",
+    fontSize: 16,
   },
   buttonContainer: {
     marginTop: 20,
-    width: "80%",
-    borderRadius: 20,
+    width: "90%",
+    borderRadius: 10,
   },
   label: {
     alignSelf: "flex-start",
-    marginLeft: "12%", // Adjust based on your layout preference
+    marginLeft: "7%", // Adjust based on your layout preference
     fontWeight: "bold",
     marginBottom: -5,
   },
@@ -142,14 +142,17 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
   },
   helperLink: {
+    fontWeight: "bold",
     color: "#f25042",
     marginLeft: 5,
+    marginTop: 10,
+    fontStyle: "italic",
   },
   loginButton: {
     backgroundColor: "#8c7851",
     padding: 10,
-    borderRadius: 20,
-    width: "98%",
+    borderRadius: 10,
+    width: "100%",
     alignItems: "center",
     justifyContent: "center",
     marginTop: -10,

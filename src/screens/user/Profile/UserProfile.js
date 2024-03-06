@@ -8,7 +8,6 @@ import {
 import React, { useContext, useEffect, useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { editUserProfile, getAllUsers, me } from "../../../api/auth";
-import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { COLORS, FONTS } from "../../../constants/Theme";
 import UserContext from "../../../context/UserContext";
@@ -74,61 +73,33 @@ const UserProfile = () => {
           <Octicons name="sign-out" size={24} color="black" />
         </TouchableOpacity>
       </View>
-      <View
+      {/* <View
         style={{
           marginHorizontal: 12,
           flexDirection: "row",
           justifyContent: "center",
         }}
       >
-        {/* <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{
-            position: "absolute",
-            left: 0,
-          }}
-        >
-          <MaterialIcons
-            name="keyboard-arrow-left"
-            size={24}
-            color={COLORS.black}
-          />
-        </TouchableOpacity> */}
-
         <Text style={styles.title}>Edit Profile</Text>
-      </View>
+      </View> */}
       <View
         style={{
           marginHorizontal: 12,
-          marginBottom: 10,
-          top: 10,
+          marginBottom: 80,
+          top: 20,
         }}
       >
         <TouchableOpacity
+          id="editBtn"
           style={styles.edutButton}
           onPress={() => {
             setEdit(!edit);
           }}
         >
-          <Text style={styles.saveButtonText}>Edit</Text>
+          <Text style={styles.saveButtonText}>Edit Profile</Text>
         </TouchableOpacity>
 
-        {/* <TouchableOpacity
-          onPress={() => navigation.navigate(ROUTES.USER.HOME_NAVIGATION.INDEX)}
-          style={{
-            position: "absolute",
-            left: 10,
-          }}
-        >
-          <MaterialIcons
-            name="keyboard-arrow-left"
-            size={24}
-            color={COLORS.black}
-          />
-        </TouchableOpacity> */}
-
         <Text style={{ ...FONTS.h3 }}></Text>
-        <View></View>
       </View>
       <View>
         <View
@@ -137,18 +108,19 @@ const UserProfile = () => {
             marginBottom: 6,
           }}
         >
-          <Text style={{ ...FONTS.h4 }}>Full Name</Text>
+          <Text style={{ ...FONTS.h4 }}>Full Name :</Text>
           <View
-            style={{
-              height: 44,
-              width: "100%",
-              borderColor: COLORS.secondaryGray,
-              borderWidth: 1,
-              borderRadius: 4,
-              marginVertical: 6,
-              justifyContent: "center",
-              paddingLeft: 8,
-            }}
+            style={styles.input}
+            // style={{
+            //   height: 44,
+            //   width: "100%",
+            //   borderColor: COLORS.secondaryGray,
+            //   borderWidth: 1,
+            //   borderRadius: 4,
+            //   marginVertical: 6,
+            //   justifyContent: "center",
+            //   paddingLeft: 8,
+            // }}
           >
             <TextInput
               value={name}
@@ -164,18 +136,19 @@ const UserProfile = () => {
             marginBottom: 6,
           }}
         >
-          <Text style={{ ...FONTS.h4 }}>Civil ID</Text>
+          <Text style={{ ...FONTS.h4 }}>Civil ID :</Text>
           <View
-            style={{
-              height: 44,
-              width: "100%",
-              borderColor: COLORS.secondaryGray,
-              borderWidth: 1,
-              borderRadius: 4,
-              marginVertical: 6,
-              justifyContent: "center",
-              paddingLeft: 8,
-            }}
+            style={styles.input}
+            // style={{
+            //   height: 44,
+            //   width: "100%",
+            //   borderColor: COLORS.secondaryGray,
+            //   borderWidth: 1,
+            //   borderRadius: 4,
+            //   marginVertical: 6,
+            //   justifyContent: "center",
+            //   paddingLeft: 8,
+            // }}
           >
             <TextInput
               value={civilId}
@@ -191,19 +164,8 @@ const UserProfile = () => {
             marginBottom: 6,
           }}
         >
-          <Text style={{ ...FONTS.h4 }}>Password</Text>
-          <View
-            style={{
-              height: 44,
-              width: "100%",
-              borderColor: COLORS.secondaryGray,
-              borderWidth: 1,
-              borderRadius: 4,
-              marginVertical: 6,
-              justifyContent: "center",
-              paddingLeft: 8,
-            }}
-          >
+          <Text style={{ ...FONTS.h4 }}>Password :</Text>
+          <View style={styles.input}>
             <TextInput
               value={password}
               onChangeText={(value) => setPassword(value)}
@@ -219,18 +181,20 @@ const UserProfile = () => {
             marginBottom: 6,
           }}
         >
-          <Text style={{ ...FONTS.h4 }}>Phone Number</Text>
+          <Text style={{ ...FONTS.h4 }}>Phone Number :</Text>
           <View
-            style={{
-              height: 44,
-              width: "100%",
-              borderColor: COLORS.secondaryGray,
-              borderWidth: 1,
-              borderRadius: 4,
-              marginVertical: 6,
-              justifyContent: "center",
-              paddingLeft: 8,
-            }}
+            style={
+              styles.input
+
+              // height: 44,
+              // width: "100%",
+              // borderColor: COLORS.secondaryGray,
+              // borderWidth: 1,
+              // borderRadius: 4,
+              // marginVertical: 6,
+              // justifyContent: "center",
+              // paddingLeft: 8,
+            }
           >
             <TextInput
               value={phoneNumber}
@@ -269,11 +233,13 @@ const styles = StyleSheet.create({
   input: {
     borderColor: "black",
     borderWidth: 0.5,
-    borderRadius: 20,
-    width: "80%",
+    borderRadius: 10,
+    width: "100%",
     padding: 10,
     marginVertical: 10, // Adds space above and below the input
     backgroundColor: "#eaddcf",
+    height: 44,
+    justifyContent: "center",
   },
   buttonContainer: {
     marginTop: 20,
@@ -312,7 +278,7 @@ const styles = StyleSheet.create({
     top: 10,
   },
   edutButton: {
-    backgroundColor: "#f25042",
+    backgroundColor: "#8c7851",
     padding: 10,
     borderRadius: 20,
     width: "98%",

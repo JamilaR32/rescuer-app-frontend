@@ -181,6 +181,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     backgroundColor: "#eaddcf",
     width: "90%",
+    borderRadius: 10,
   },
   buttonContainer: {
     marginTop: 20,
@@ -221,6 +222,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 12,
     marginBottom: 10,
     top: 10,
+    fontSize: 16,
   },
   edutButton: {
     backgroundColor: "#f25042",
@@ -266,7 +268,7 @@ const styles2 = StyleSheet.create({
   },
   strengthMeter: {
     width: "80%",
-    height: 20,
+    height: 9,
     backgroundColor: "#ccc",
     marginTop: 20,
     borderRadius: 10,
