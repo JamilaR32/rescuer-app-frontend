@@ -106,8 +106,6 @@ const HelperRegister = () => {
 
       {/* <Text style={styles.title}>Helper Registration</Text> */}
       <TouchableOpacity onPress={selectImage}>
-        {/* {profilePicture && (
-          )} */}
         <Image
           source={{ uri: profilePicture }}
           style={{
@@ -167,7 +165,7 @@ const HelperRegister = () => {
           onChangeText={(text) => setPlateNumber(text)}
         />
 
-        <Text style={styles.skillTitle}>Select Skills:</Text>
+        <Text style={styles.skillTitle}>Select Your Skills:</Text>
         <View style={styles.skillsContainer}>
           {skills.map((skill) => (
             <TouchableOpacity
@@ -214,7 +212,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
     backgroundColor: "#eaddcf",
-    width: "100%",
+    width: "98%",
+    borderRadius: 10,
   },
   profilePictureField: {
     backgroundColor: "#f25042",
@@ -235,14 +234,17 @@ const styles = StyleSheet.create({
     borderRadius: 75,
   },
   skillTitle: {
-    fontSize: 18,
+    fontSize: 16,
     marginBottom: 10,
+
+    fontWeight: "bold",
   },
   skillsContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
     marginBottom: 20,
     justifyContent: "center",
+    alignItems: "center",
   },
   skillButton: {
     paddingHorizontal: 12,
@@ -258,8 +260,8 @@ const styles = StyleSheet.create({
   registerButton: {
     backgroundColor: "#8c7851",
     padding: 10,
-    borderRadius: 20,
-    width: "90%",
+    borderRadius: 10,
+    width: "95%",
     alignItems: "center",
     justifyContent: "center",
     marginTop: -10,

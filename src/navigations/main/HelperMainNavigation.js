@@ -16,9 +16,14 @@ const HelperMainNavigation = () => {
   return (
     <Tab.Navigator
       shifting={true}
-      activeColor="#f9f4ef"
-      inactiveColor="#8c7851"
-      barStyle={{ backgroundColor: "#8c7851", height: 90 }}
+      activeColor="black"
+      activeIndicatorStyle={{ backgroundColor: "#8c7851" }}
+      barStyle={{
+        backgroundColor: "#f9f4ef",
+        height: 85,
+        borderTopColor: "#D3D3D3",
+        borderTopWidth: 0.5,
+      }}
       screenOptions={{ headerShown: false }}
     >
       <Tab.Screen
@@ -65,7 +70,9 @@ const HelperMainNavigation = () => {
         options={{
           tabBarShowLabel: false,
           title: "Profile",
-          tabBarIcon: () => <Octicons name="person" size={24} color="black" />,
+          tabBarIcon: () => (
+            <MaterialCommunityIcons name="account" size={24} color="black" />
+          ),
         }}
       />
     </Tab.Navigator>

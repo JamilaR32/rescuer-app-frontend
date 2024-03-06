@@ -4,9 +4,10 @@ import ROUTES from "..";
 import UserHistoryNavigation from "../user/UserHistoryNavigation";
 import UserProfileNavigation from "../user/UserProfileNavigation";
 import UserHomeNavigation from "../user/UserHomeNavigation";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { SimpleLineIcons } from "@expo/vector-icons";
 const UserMainNavigation = () => {
   // const Tab = createBottomTabNavigator();
   const Tab = createMaterialBottomTabNavigator();
@@ -14,9 +15,16 @@ const UserMainNavigation = () => {
   return (
     <Tab.Navigator
       shifting={true}
-      activeColor="#f9f4ef"
-      inactiveColor="#8c7851"
-      barStyle={{ backgroundColor: "#8c7851", height: 90 }}
+      activeColor="black"
+      activeIndicatorStyle={{ backgroundColor: "#8c7851" }}
+      // activeTintColor="red"
+      // inactiveColor="#8c7851"
+      barStyle={{
+        backgroundColor: "#f9f4ef",
+        height: 85,
+        borderTopColor: "#D3D3D3",
+        borderTopWidth: 0.5,
+      }}
       screenOptions={{ headerShown: false }}
     >
       <Tab.Screen
@@ -47,7 +55,9 @@ const UserMainNavigation = () => {
         options={{
           tabBarShowLabel: false,
           title: "Profile",
-          tabBarIcon: () => <Octicons name="person" size={24} color="black" />,
+          tabBarIcon: () => (
+            <MaterialCommunityIcons name="account" size={24} color="black" />
+          ),
         }}
       />
     </Tab.Navigator>

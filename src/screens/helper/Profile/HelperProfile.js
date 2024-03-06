@@ -335,7 +335,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   saveButton: {
-    backgroundColor: "#8c7851",
+    backgroundColor: "#eaddcf",
     padding: 10,
     borderRadius: 20,
     width: "100%",
@@ -347,7 +347,7 @@ const styles = StyleSheet.create({
     top: 10,
   },
   edutButton: {
-    backgroundColor: "#f25042",
+    backgroundColor: "#eaddcf",
     padding: 10,
     borderRadius: 20,
     width: "98%",
