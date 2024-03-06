@@ -39,7 +39,7 @@ const HelperMap = () => {
     const fetchLocation = async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
-        console.log("Permission to access location was denied");
+        //console.log("Permission to access location was denied");
         return;
       }
       const loc = await Location.getCurrentPositionAsync({});
@@ -77,14 +77,18 @@ const HelperMap = () => {
     queryKey: ["checkRequest"],
     queryFn: () => checkRequest(),
   });
-  // console.log(data);
+
+  const handlePhoneCall = () => {
+    // Redirect to the phone page
+    Linking.openURL(`tel:+965${data?.helper?.user.phoneNumber}`); // Replace with the phone number you want to call
+  };
+
   const menuItems = [
     { id: 1, title: "Item 1" },
     { id: 2, title: "Item 2" },
     { id: 3, title: "Item 3" },
     { id: 4, title: "Item 4" },
     { id: 5, title: "Item 5" },
-    { id: 6, title: "Item 6" },
   ];
 
   const goToThisLocation = (latitude, longitude) => {
@@ -165,17 +169,17 @@ const HelperMap = () => {
               }}
             >
               <TouchableOpacity
-                onPress={() => setLock(!lock)}
-                style={{
-                  borderRadius: 12,
-                  backgroundColor: "#ff000090",
-                  width: 120,
-                  height: 40,
-                  justifyContent: "center",
-                  alignItems: "center",
+                onPress={() => {
+                  setLock(!lock);
                 }}
+                style={[
+                  styles.lockButton,
+                  { backgroundColor: lock ? "#ff000090" : "#00ff0090" },
+                ]}
               >
-                <Text>{lock ? "Unlock Location" : "Lock Location"}</Text>
+                <Text style={styles.buttonText}>
+                  {lock ? "Unlock Location" : "Lock Location"}
+                </Text>
               </TouchableOpacity>
             </View>
             <View
@@ -313,5 +317,11 @@ const styles = StyleSheet.create({
   phoneButtonText: {
     color: "#fff",
     fontWeight: "bold",
+  },
+  lockButton: {
+    borderRadius: 12,
+    padding: 12,
+    backgroundColor: "#ff000090",
+    alignItems: "center",
   },
 });

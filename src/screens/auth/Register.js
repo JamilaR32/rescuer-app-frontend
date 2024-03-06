@@ -10,7 +10,6 @@ import { jwtDecode } from "jwt-decode";
 import { TextInput } from "react-native";
 
 const Register = () => {
-  //validatePasswordStrength
   const [userInfo, setUserInfo] = useState({});
   const [user, setUser] = useContext(UserContext);
 
@@ -24,7 +23,10 @@ const Register = () => {
   });
   const [strength, setStrength] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const [password, setPassword] = useState(""); // New state to track password
+
   const validatePassword = (input) => {
+    setPassword(input); // Update password state
     let newSuggestions = [];
     if (input.length < 8) {
       newSuggestions.push("Password should be at least 8 characters long");
@@ -56,6 +58,7 @@ const Register = () => {
       setStrength("Too Weak");
     }
   };
+
   return (
     <View style={styles.container}>
       <Image
@@ -103,44 +106,47 @@ const Register = () => {
           validatePassword(text);
         }}
       />
-      <Text style={styles2.strengthText}> {strength}</Text>
-
-      <Text style={styles2.suggestionsText}>
-        {suggestions.map((suggestion, index) => (
-          <Text key={index}>
-            {suggestion}
-            {"\n"}
+      {password.length > 0 && ( // Conditionally render strength meter and suggestions
+        <>
+          <Text style={styles2.strengthText}> {strength}</Text>
+          <Text style={styles2.suggestionsText}>
+            {suggestions.map((suggestion, index) => (
+              <Text key={index}>
+                {suggestion}
+                {"\n"}
+              </Text>
+            ))}
           </Text>
-        ))}
-      </Text>
-      <View style={styles2.strengthMeter}>
-        <View
-          style={{
-            width: `${
-              strength === "Very Strong"
-                ? 100
-                : strength === "Strong"
-                ? 75
-                : strength === "Moderate"
-                ? 50
-                : strength === "Weak"
-                ? 25
-                : 0
-            }%`,
-            height: 20,
-            backgroundColor:
-              strength === "Too Weak"
-                ? "red"
-                : strength === "Weak"
-                ? "orange"
-                : strength === "Moderate"
-                ? "yellow"
-                : strength === "Strong"
-                ? "green"
-                : "limegreen",
-          }}
-        ></View>
-      </View>
+          <View style={styles2.strengthMeter}>
+            <View
+              style={{
+                width: `${
+                  strength === "Very Strong"
+                    ? 100
+                    : strength === "Strong"
+                    ? 75
+                    : strength === "Moderate"
+                    ? 50
+                    : strength === "Weak"
+                    ? 25
+                    : 0
+                }%`,
+                height: 20,
+                backgroundColor:
+                  strength === "Too Weak"
+                    ? "red"
+                    : strength === "Weak"
+                    ? "orange"
+                    : strength === "Moderate"
+                    ? "yellow"
+                    : strength === "Strong"
+                    ? "green"
+                    : "limegreen",
+              }}
+            ></View>
+          </View>
+        </>
+      )}
 
       <TouchableOpacity style={styles.registerButton} onPress={mutate}>
         <Text style={styles.registerButtonText}>Register</Text>
@@ -164,6 +170,7 @@ const Register = () => {
 };
 
 export default Register;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -181,11 +188,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     backgroundColor: "#eaddcf",
     width: "90%",
-  },
-  buttonContainer: {
-    marginTop: 20,
-    width: "80%",
-    borderRadius: 20,
   },
   label: {
     alignSelf: "flex-start",
@@ -205,10 +207,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontWeight: "bold",
     fontStyle: "italic",
-  },
-  helperLink: {
-    color: "#f25042",
-    marginLeft: 5,
   },
   registerButton: {
     backgroundColor: "#8c7851",
@@ -236,6 +234,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
+
 const styles2 = StyleSheet.create({
   container: {
     flex: 1,
@@ -266,9 +265,9 @@ const styles2 = StyleSheet.create({
   },
   strengthMeter: {
     width: "80%",
-    height: 20,
+    height: 9,
     backgroundColor: "#ccc",
-    marginTop: 20,
+    marginTop: 1,
     borderRadius: 10,
     overflow: "hidden",
   },
