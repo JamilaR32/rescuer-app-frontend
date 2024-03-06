@@ -9,29 +9,20 @@ const UserHistory = () => {
     queryKey: ["requests"],
     queryFn: () => pastRequests(),
   });
-  const { data: HelperInfo } = useQuery({
-    queryKey: ["userId"],
-    queryFn: () => getUserByHelperId(_id),
-  });
 
-  //console.log(HelperInfo);
-  const getUserByHelper = (id) => {
-    const user = data(id);
-    return user;
-  };
   const filteredRequests = data?.filter(
     (request) => request.status === "close"
   );
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <ScrollView>
         {filteredRequests?.map((request, index) => (
           <View key={index} style={styles.card}>
             <Text style={styles.title}>Case: {request.case}</Text>
             <Text>Status: {request.status}</Text>
             <Text>Location: {request.location.coordinates.join(", ")}</Text>
-            <Text>Helper: {request.helper}</Text>
+            <Text>Helper: {request.helper?.user?.fullName}</Text>
             <Text>
               Created At: {new Date(request.createdAt).toLocaleString()}
             </Text>

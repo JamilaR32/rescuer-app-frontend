@@ -80,7 +80,7 @@ const HelperMap = () => {
 
   const handlePhoneCall = () => {
     // Redirect to the phone page
-    Linking.openURL("tel:+123456789"); // Replace with the phone number you want to call
+    Linking.openURL(`tel:+965${data?.helper?.user.phoneNumber}`); // Replace with the phone number you want to call
   };
 
   const menuItems = [
@@ -114,6 +114,7 @@ const HelperMap = () => {
       setAlreadyDone(true);
     }
   }, [location]);
+
   return (
     <View style={[styles.container, { position: "relative" }]}>
       <MapView
@@ -252,7 +253,7 @@ const HelperMap = () => {
       </View>
 
       <View style={styles.phoneButtonContainer}>
-        {data && (
+        {data?.status == "ongoing" && (
           <TouchableOpacity
             onPress={handlePhoneCall}
             style={styles.phoneButton}

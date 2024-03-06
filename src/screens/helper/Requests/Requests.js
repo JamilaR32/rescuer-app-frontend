@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
   Text,
+  RefreshControl,
 } from "react-native";
 import * as Location from "expo-location";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -70,7 +71,7 @@ const Requests = () => {
   }, []);
 
   const handleAccept = (requestId) => {
-    if (!location) return;
+    if (!location) return alert("you dont have location too accept request!");
     const { latitude, longitude } = location.coords;
     acceptMutate({ requestId, latitude, longitude });
   };
@@ -104,10 +105,13 @@ const Requests = () => {
       })
       .catch((err) => console.error("An error occurred", err));
   };
-
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={isLoading} onRefresh={refetch} />
+        }
+      >
         {data
           ?.filter((request) => request.status !== "close")
           .map((request) => (
@@ -115,36 +119,50 @@ const Requests = () => {
               <Text style={styles.title}>Case: {request.case}</Text>
               <Text>Status: {request.status}</Text>
               <Text>Location: {request.location.coordinates.join(", ")}</Text>
-              <Text>Helper: {request.helper}</Text>
+              <Text>Helper: {request.user.fullName}</Text>
               <Text>
                 Created At: {new Date(request.createdAt).toLocaleString()}
               </Text>
-              {request.status === "open" && (
-                <TouchableOpacity
-                  onPress={() => handleAccept(request._id)}
-                  style={styles.button}
-                  disabled={isMutateLoading}
-                >
-                  <Text>Accept</Text>
-                </TouchableOpacity>
-              )}
+              {request.status === "open" &&
+                (location ? (
+                  <TouchableOpacity
+                    onPress={() => handleAccept(request._id)}
+                    style={[styles.button, { backgroundColor: "#00550050" }]}
+                    disabled={isMutateLoading}
+                  >
+                    <Text>Accept</Text>
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity style={styles.button} disabled={true}>
+                    <Text>Loading...</Text>
+                  </TouchableOpacity>
+                ))}
               {request.status === "ongoing" && (
                 <View style={styles.buttonGroup}>
                   <TouchableOpacity
-                    style={styles.button}
+                    style={[
+                      styles.button,
+                      { backgroundColor: "#55000050", width: 100 },
+                    ]}
                     onPress={() => handleCancel(request._id)}
                     disabled={isMutateLoading}
                   >
                     <Text>Cancel</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    style={styles.button}
+                    style={[
+                      styles.button,
+                      { backgroundColor: "#00550055", width: 100 },
+                    ]}
                     onPress={openGoogleMaps}
                   >
                     <Text>Location</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    style={styles.button}
+                    style={[
+                      styles.button,
+                      { backgroundColor: "#55550055", width: 100 },
+                    ]}
                     onPress={() => closeRequestMutate(request._id)}
                     disabled={isMutateLoading}
                   >

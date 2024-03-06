@@ -56,7 +56,7 @@ const HelperMap = () => {
 
     intervalId = setInterval(() => {
       fetchLocation(); // Fetch every second
-    }, 1000); // Updated to fetch every 1000ms or every second
+    }, 5000); // Updated to fetch every 1000ms or every second
 
     return () => {
       clearInterval(intervalId); // Clear interval on component unmount
