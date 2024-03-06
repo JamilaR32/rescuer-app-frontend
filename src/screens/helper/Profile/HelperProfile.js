@@ -16,7 +16,7 @@ import { TextInput } from "react-native";
 import { Image } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { MaterialIcons } from "@expo/vector-icons";
-import { BASE_URL2 } from "../../../api";
+import { useNavigation } from "@react-navigation/core";
 const HelperProfile = () => {
   const [user, setUser] = useContext(UserContext);
   const [edit, setEdit] = useState(false);
@@ -72,8 +72,6 @@ const HelperProfile = () => {
     deleteToken();
     setUser(null);
   };
-
-  console.log(`${BASE_URL2}/${image}`);
   return (
     <View style={styles.container}>
       <View
@@ -133,7 +131,7 @@ const HelperProfile = () => {
         >
           <TouchableOpacity onPress={selectImage}>
             <Image
-              source={{ uri: `${BASE_URL2}/${image}` }}
+              source={{ uri: image }}
               style={{
                 height: 170,
                 width: 170,

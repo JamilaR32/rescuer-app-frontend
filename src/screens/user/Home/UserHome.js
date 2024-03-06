@@ -6,7 +6,7 @@ import {
   View,
   Animated,
   ScrollView,
-  Button,
+  Linking, // Import Linking to handle phone call redirection
 } from "react-native";
 import MapView, { Circle, Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import * as Location from "expo-location";
@@ -20,7 +20,7 @@ const HelperMap = () => {
   const [zoomInfo, setZoomInfo] = useState({});
   const [isVisible, setIsVisible] = useState(false);
   const animationHeight = useRef(new Animated.Value(0)).current; // Initial valu
-
+  const [alreadyDone, setAlreadyDone] = useState(false);
   const toggleMenu = () => {
     const itemHeight = 50; // Adjust based on your actual item height
     const totalHeight = menuItems.length * itemHeight;
@@ -39,7 +39,7 @@ const HelperMap = () => {
     const fetchLocation = async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
-        // //console.log("Permission to access location was denied");
+        console.log("Permission to access location was denied");
         return;
       }
       const loc = await Location.getCurrentPositionAsync({});
@@ -69,6 +69,7 @@ const HelperMap = () => {
     mutationKey: [`createRequest`],
     onSuccess: () => {
       toggleMenu();
+      refetch();
     },
   });
 
@@ -76,7 +77,7 @@ const HelperMap = () => {
     queryKey: ["checkRequest"],
     queryFn: () => checkRequest(),
   });
-  // //console.log(data);
+  // console.log(data);
   const menuItems = [
     { id: 1, title: "Item 1" },
     { id: 2, title: "Item 2" },
@@ -84,30 +85,7 @@ const HelperMap = () => {
     { id: 4, title: "Item 4" },
     { id: 5, title: "Item 5" },
     { id: 6, title: "Item 6" },
-
-    // Add more items as needed
   ];
-  // const { mutate } = useMutation({
-  //   mutationFn: updateHelperLocation({
-  //     coordinates: [longitude, latitude],
-  //   }),
-  //   mutationKey: [`updatelocation`],
-  // });
-
-  // Inside your component
-  useEffect(() => {
-    // Set up the interval
-    if (data?.helper.location) {
-      const fetchEverySecond = setInterval(() => {
-        refetch();
-      }, 2000);
-
-      // Cleanup function to clear the interval
-      return () => {
-        clearInterval(fetchEverySecond);
-      };
-    }
-  }, [data?.helper]);
 
   const goToThisLocation = (latitude, longitude) => {
     const newRegion = {
@@ -122,25 +100,15 @@ const HelperMap = () => {
   useEffect(() => {
     if (latitude && longitude && lock) {
       goToThisLocation(latitude, longitude);
-      // const newRegion = {
-      //   latitude,
-      //   longitude,
-      //   latitudeDelta: zoomInfo.latitudeDelta || 0.0922, // Provide default values
-      //   longitudeDelta: zoomInfo.longitudeDelta || 0.0421,
-      // };
-      // mapRef.current.animateToRegion(newRegion, 0);
     }
   }, [location, lock]);
 
-  //   <Button
-  //   title={lock ? "Unlock Location" : "Lock Location"}
-  //   onPress={() => setLock(!lock)}
-  //   style={styles.button}
-  // />
-
-  const handleRequest = (e) => {
-    mutate(e);
-  };
+  useEffect(() => {
+    if (location && !alreadyDone) {
+      goToThisLocation(latitude, longitude);
+      setAlreadyDone(true);
+    }
+  }, [location]);
 
   return (
     <View style={[styles.container, { position: "relative" }]}>
@@ -187,12 +155,13 @@ const HelperMap = () => {
       <View style={{ flex: 1, zIndex: 0 }} pointerEvents="box-none">
         <View style={{ flex: 1 }} pointerEvents="box-none">
           <View style={{ flex: 10 }} pointerEvents="box-none"></View>
-          <View style={{ flex: 80 }} pointerEvents="box-none">
+          <View style={{ flex: 75 }} pointerEvents="box-none">
             <View
               pointerEvents="box-none"
               style={{
                 flex: 1,
                 alignItems: "flex-end",
+                paddingRight: 20,
               }}
             >
               <TouchableOpacity
@@ -236,7 +205,7 @@ const HelperMap = () => {
                       key={item.id}
                       style={styles.button}
                       onPress={() => {
-                        handleRequest(item.title);
+                        mutate(item.title);
                       }}
                     >
                       <Text>{item.title}</Text>
@@ -277,6 +246,17 @@ const HelperMap = () => {
           </View>
         </View>
       </View>
+
+      <View style={styles.phoneButtonContainer}>
+        {data?.status == "ongoing" && (
+          <TouchableOpacity
+            onPress={handlePhoneCall}
+            style={styles.phoneButton}
+          >
+            <Text style={styles.phoneButtonText}>Call Assigned Helper</Text>
+          </TouchableOpacity>
+        )}
+      </View>
     </View>
   );
 };
@@ -290,18 +270,7 @@ const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject, // Make the map fill the entire screen
   },
-  //   button: {
-  //     position: "absolute", // Or use Flexbox properties
-  //     top: 20, // Adjust as needed
-  //     alignSelf: "center", // Centers the button container horizontally
-  //     paddingHorizontal: 20,
-  //   },
   menu: {
-    // position: "absolute",
-    // bottom: 65,
-    left: 0,
-    right: 0,
-    // backgroundColor: "#ff000090",
     borderRadius: 12,
     overflow: "hidden",
   },
@@ -326,5 +295,23 @@ const styles = StyleSheet.create({
   },
   dropUpButtonText: {
     color: "#fff",
+  },
+  phoneButtonContainer: {
+    position: "absolute",
+    bottom: 70,
+    alignSelf: "flex-end",
+    paddingRight: 40,
+    width: "100vh",
+    height: "100vh",
+  },
+  phoneButton: {
+    backgroundColor: "#009688",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+  },
+  phoneButtonText: {
+    color: "#fff",
+    fontWeight: "bold",
   },
 });

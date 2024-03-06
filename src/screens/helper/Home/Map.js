@@ -20,6 +20,7 @@ const HelperMap = () => {
   const [isLive, setIsLive] = useState(false); // State to manage live status
   const animationHeight = useRef(new Animated.Value(0)).current;
   const [userInfo, setUserInfo] = useState({});
+  const [alreadyDone, setAlreadyDone] = useState(false);
 
   //   const { data } = useQuery({
   //     queryKey: ["test222"],
@@ -55,7 +56,7 @@ const HelperMap = () => {
 
     intervalId = setInterval(() => {
       fetchLocation(); // Fetch every second
-    }, 1000); // Updated to fetch every 1000ms or every second
+    }, 5000); // Updated to fetch every 1000ms or every second
 
     return () => {
       clearInterval(intervalId); // Clear interval on component unmount
@@ -83,13 +84,30 @@ const HelperMap = () => {
       mapRef.current.animateToRegion(newRegion, 0);
     }
   }, [location, lock]);
-
+  useEffect(() => {
+    if (location && !alreadyDone) {
+      const newRegion = {
+        latitude,
+        longitude,
+        latitudeDelta: zoomInfo.latitudeDelta || 0.0922, // Provide default values
+        longitudeDelta: zoomInfo.longitudeDelta || 0.0421,
+      };
+      mapRef.current.animateToRegion(newRegion, 0);
+      setAlreadyDone(true);
+    }
+  }, [location]);
   return (
     <View style={styles.container}>
       <MapView
         provider={PROVIDER_GOOGLE}
         style={styles.map}
         ref={mapRef}
+        onRegionChange={(r) => {
+          setZoomInfo({
+            latitudeDelta: r.latitudeDelta,
+            longitudeDelta: r.longitudeDelta,
+          });
+        }}
         initialRegion={{
           latitude: latitude ?? 0,
           longitude: longitude ?? 0,

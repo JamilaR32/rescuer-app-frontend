@@ -69,4 +69,17 @@ const editUserProfile = async (userInfo) => {
   return res.data;
 };
 
-export { me, login, register, editUserProfile, getAllUsers, registerHelperAPI };
+const getUserByHelperId = async (_id) => {
+  const res = await instance.get(`/getUserByHelperId/${_id}`);
+  return res.data;
+};
+
+export {
+  me,
+  login,
+  register,
+  editUserProfile,
+  getAllUsers,
+  registerHelperAPI,
+  getUserByHelperId,
+};

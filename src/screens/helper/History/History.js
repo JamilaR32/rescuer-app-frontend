@@ -3,9 +3,9 @@ import { View, Text, ScrollView, StyleSheet, SafeAreaView } from "react-native";
 import { useQuery } from "@tanstack/react-query";
 import { getAllRequests, pastRequests } from "../../../api/requests";
 
-const History = () => {
+const HelperHistory = () => {
   const { data, isLoading, error } = useQuery({
-    queryKey: ["history"],
+    queryKey: ["requests"],
     queryFn: () => pastRequests(),
   });
 
@@ -27,7 +27,7 @@ const History = () => {
             <Text style={styles.title}>Case: {request.case}</Text>
             <Text>Status: {request.status}</Text>
             <Text>Location: {request.location.coordinates.join(", ")}</Text>
-            <Text>Helper: {request.helper}</Text>
+            <Text>Helper: {request.user.fullName}</Text>
             <Text>
               Created At: {new Date(request.createdAt).toLocaleString()}
             </Text>
@@ -64,4 +64,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default History;
+export default HelperHistory;

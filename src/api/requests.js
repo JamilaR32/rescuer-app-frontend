@@ -7,7 +7,7 @@ const pastRequests = async () => {
 // need a lot of work
 const getAllRequests = async () => {
   const { data } = await instance.get("/requests");
-  // //console.log("data", data);
+
   return data;
 };
 const createRequest = async (userInfo) => {
@@ -28,11 +28,21 @@ const checkRequest = async () => {
   const res = await instance.get("/requests/getIfIHaveRequest");
   return res.data;
 };
-// need a lot of work
+
+const cancelRequest = async (_id) => {
+  const res = await instance.put(`/requests/open/${_id}`);
+  return res.data;
+};
+const closeRequest = async (_id) => {
+  const res = await instance.put(`/requests/close/${_id}`);
+  return res.data;
+};
 export {
   pastRequests,
   createRequest,
   getAllRequests,
   acceptRequest,
   checkRequest,
+  cancelRequest,
+  closeRequest,
 };
