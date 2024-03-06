@@ -1,9 +1,8 @@
 import axios from "axios";
 import { getToken } from "./storage";
 
-const BASE_URL = "http://192.168.8.140:8000/api";
-const BASE_URL2 = "http://192.168.8.140:8000";
-
+const BASE_URL = "http://192.168.8.158:8000/api";
+const BASE_URL2 = "http://192.168.8.158:8000";
 const instance = axios.create({
   baseURL: BASE_URL,
 });

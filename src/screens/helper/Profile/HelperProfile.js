@@ -17,7 +17,6 @@ import { Image } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
-import { BASE_URL, BASE_URL2 } from "../../../api";
 const HelperProfile = () => {
   const [user, setUser] = useContext(UserContext);
   const [edit, setEdit] = useState(false);
@@ -26,12 +25,12 @@ const HelperProfile = () => {
   const [civilId, setCivilId] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [image, setImage] = useState("");
-  // const navigation = useNavigation();
+
   const { data } = useQuery({
-    queryKey: ["myInfo"],
+    queryKey: ["myInfo2"],
     queryFn: () => me(),
   });
-
+  //console.log(data);
   useEffect(() => {
     if (data) {
       setCivilId(data?.civilId);
@@ -73,7 +72,6 @@ const HelperProfile = () => {
     deleteToken();
     setUser(null);
   };
-  console.log(image);
   return (
     <View style={styles.container}>
       <View
@@ -132,21 +130,16 @@ const HelperProfile = () => {
           }}
         >
           <TouchableOpacity onPress={selectImage}>
-            {image && (
-              <Image
-                source={{
-                  uri: image.includes("file") ? image : `${BASE_URL2}/${image}`,
-                }}
-                style={{
-                  height: 170,
-                  width: 170,
-                  borderRadius: 85,
-                  borderWidth: 0.5,
-                  borderColor: "#8c7851",
-                  resizeMode: "contain",
-                }}
-              />
-            )}
+            <Image
+              source={{ uri: image }}
+              style={{
+                height: 170,
+                width: 170,
+                borderRadius: 85,
+                borderWidth: 0.5,
+                borderColor: "#8c7851",
+              }}
+            />
             <View
               style={{
                 position: "absolute",

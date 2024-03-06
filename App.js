@@ -1,26 +1,26 @@
 import "core-js/stable/atob";
 import { NavigationContainer } from "@react-navigation/native";
 import AuthNavigation from "./src/navigations/main/AuthNavigation";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useMutation,
+} from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import UserContext from "./src/context/UserContext";
-
 import { getToken } from "./src/api/storage";
-// import PasswordValidator from "./src/screens/user/Profile/PasswordValidator";
 import { jwtDecode } from "jwt-decode";
 import HelperMainNavigation from "./src/navigations/main/HelperMainNavigation";
 import UserMainNavigation from "./src/navigations/main/UserMainNavigation";
 import { NativeBaseProvider } from "native-base";
-import UserProfile from "./src/screens/user/Profile/UserProfile";
-import HelperRegister from "./src/screens/auth/HelperRegister";
-import Register from "./src/screens/auth/Register";
 import HelperProfile from "./src/screens/helper/Profile/HelperProfile";
-import { LogBox } from "react-native";
-
-LogBox.ignoreAllLogs(true);
-
+import * as Device from "expo-device";
+import * as Notifications from "expo-notifications";
+import { Platform } from "react-native";
+import { updateToken } from "./src/api/notification";
 export default function App() {
   const [user, setUser] = useState(false);
+  const [expoPushToken, setExpoPushToken] = useState("");
 
   useEffect(() => {
     const checkToken = async () => {
@@ -50,10 +50,80 @@ export default function App() {
   return (
     <QueryClientProvider client={new QueryClient()}>
       <UserContext.Provider value={[user, setUser]}>
+        <NotificationComponent
+          user={user}
+          setExpoPushToken={setExpoPushToken}
+        />
         <NativeBaseProvider>
+          {/* <HelperProfile /> */}
           <NavigationContainer>{renderThisScreen()}</NavigationContainer>
         </NativeBaseProvider>
       </UserContext.Provider>
     </QueryClientProvider>
   );
+}
+
+const NotificationComponent = ({ user, setExpoPushToken }) => {
+  const { mutate } = useMutation({
+    mutationKey: ["notification-token"],
+    mutationFn: (token) => updateToken(token),
+  });
+  useEffect(() => {
+    if (user) {
+      registerForPushNotificationsAsync().then((token) => {
+        setExpoPushToken(token);
+        mutate(token);
+      });
+    }
+  }, [user]);
+
+  return null;
+};
+
+async function registerForPushNotificationsAsync() {
+  let token;
+  console.log("STEP 1");
+  if (Platform.OS === "android") {
+    await Notifications.setNotificationChannelAsync("default", {
+      name: "default",
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: "#FF231F7C",
+    });
+  }
+  console.log("STEP 2");
+
+  if (Device.isDevice) {
+    console.log("STEP 3");
+
+    const { status: existingStatus } =
+      await Notifications.getPermissionsAsync();
+    console.log("STEP 4");
+
+    let finalStatus = existingStatus;
+    if (existingStatus !== "granted") {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    console.log("STEP 5");
+
+    if (finalStatus !== "granted") {
+      alert("Failed to get push token for push notification!");
+      return;
+    }
+    console.log("STEP 6");
+
+    // Learn more about projectId:
+    // https://docs.expo.dev/push-notifications/push-notifications-setup/#configure-projectid
+    token = (
+      await Notifications.getExpoPushTokenAsync({
+        projectId: "70af710a-34e6-414f-80a4-bddb5034ae50",
+      })
+    ).data;
+    console.log(token);
+  } else {
+    alert("Must use physical device for Push Notifications");
+  }
+
+  return token;
 }

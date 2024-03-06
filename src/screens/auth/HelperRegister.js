@@ -13,8 +13,7 @@ import { useMutation } from "@tanstack/react-query";
 import { registerHelperAPI } from "../../api/auth";
 import { jwtDecode } from "jwt-decode";
 import UserContext from "../../context/UserContext";
-import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
-const logo = require("../../../assets/logo/rescLogo.png");
+import { MaterialIcons } from "@expo/vector-icons";
 
 const HelperRegister = () => {
   const [fullName, setFullName] = useState("");
