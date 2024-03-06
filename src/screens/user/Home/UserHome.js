@@ -7,6 +7,7 @@ import {
   Animated,
   ScrollView,
   Linking, // Import Linking to handle phone call redirection
+  Image,
 } from "react-native";
 import MapView, { Circle, Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import * as Location from "expo-location";
@@ -49,7 +50,8 @@ const HelperMap = () => {
     fetchLocation(); // Fetch immediately on component mount
 
     intervalId = setInterval(() => {
-      fetchLocation(); // Fetch every second
+      fetchLocation();
+      refetch(); // Fetch every second
     }, 1000); // Updated to fetch every 1000ms or every second
 
     return () => {
@@ -139,7 +141,12 @@ const HelperMap = () => {
               latitude: data?.helper.location?.coordinates[1] || 0,
               longitude: data?.helper.location?.coordinates[0] || 0,
             }}
-          />
+          >
+            <Image
+              source={require("../../../../assets/images/car.png")}
+              style={{ width: 40, height: 40 }}
+            />
+          </Marker>
         )}
         <Marker
           onPress={() => {
