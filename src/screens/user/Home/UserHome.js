@@ -12,7 +12,13 @@ import {
 import MapView, { Circle, Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import * as Location from "expo-location";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { checkRequest, createRequest } from "../../../api/requests";
+import {
+  checkRequest,
+  createRequest,
+  deleteRequest,
+} from "../../../api/requests";
+import { SvgUri } from "react-native-svg";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const HelperMap = () => {
   const [location, setLocation] = useState(null);
@@ -74,7 +80,14 @@ const HelperMap = () => {
       refetch();
     },
   });
+  const { mutate: deleteRequestZ } = useMutation({
+    mutationFn: (id) => deleteRequest(id),
 
+    mutationKey: [`DeleteRequest`],
+    onSuccess: () => {
+      refetch();
+    },
+  });
   const { data, refetch } = useQuery({
     queryKey: ["checkRequest"],
     queryFn: () => checkRequest(),
@@ -86,11 +99,22 @@ const HelperMap = () => {
   };
 
   const menuItems = [
-    { id: 1, title: "Item 1" },
-    { id: 2, title: "Item 2" },
-    { id: 3, title: "Item 3" },
-    { id: 4, title: "Item 4" },
-    { id: 5, title: "Item 5" },
+    { id: 1, title: "Flat Tire", svgUri: "car-tire-alert" },
+    {
+      id: 2,
+      title: "Stuck in Sand",
+      svgUri: "car-lifted-pickup",
+    },
+    {
+      id: 3,
+      title: "Empty Fuel Tank",
+      svgUri: "fuel",
+    },
+    {
+      id: 4,
+      title: "Car Stopped Working",
+      svgUri: "engine-off",
+    },
   ];
 
   const goToThisLocation = (latitude, longitude) => {
@@ -219,7 +243,25 @@ const HelperMap = () => {
                         mutate(item.title);
                       }}
                     >
-                      <Text>{item.title}</Text>
+                      <View
+                        style={[
+                          styles.menuItem,
+                          {
+                            flexDirection: "row",
+                            justifyContent: "flex-end",
+                            alignItems: "center",
+                            gap: 12,
+                          },
+                        ]}
+                      >
+                        <MaterialCommunityIcons
+                          name={item.svgUri}
+                          size={24}
+                          color="black"
+                        />
+
+                        <Text style={styles.menuItemText}>{item.title}</Text>
+                      </View>
                     </TouchableOpacity>
                   ))}
                 </ScrollView>
@@ -258,14 +300,38 @@ const HelperMap = () => {
         </View>
       </View>
 
-      <View style={styles.phoneButtonContainer}>
+      <View style={{ ...styles.phoneButtonContainer, flexDirection: "row" }}>
         {data?.status == "ongoing" && (
-          <TouchableOpacity
-            onPress={handlePhoneCall}
-            style={styles.phoneButton}
-          >
-            <Text style={styles.phoneButtonText}>Call Assigned Helper</Text>
-          </TouchableOpacity>
+          <>
+            <TouchableOpacity
+              onPress={handlePhoneCall}
+              style={styles.phoneButton}
+            >
+              <Text style={styles.phoneButtonText}>Call Assigned Helper</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => deleteRequestZ(data?._id)}
+              style={[
+                styles.phoneButton,
+                { backgroundColor: "red", paddingLeft: 20 },
+              ]}
+            >
+              <Text style={styles.phoneButtonText}>Delete request</Text>
+            </TouchableOpacity>
+          </>
+        )}
+        {data?.status == "open" && (
+          <>
+            <TouchableOpacity
+              onPress={() => deleteRequestZ(data?._id)}
+              style={[
+                styles.phoneButton,
+                { backgroundColor: "red", paddingLeft: 20 },
+              ]}
+            >
+              <Text style={styles.phoneButtonText}>Delete request</Text>
+            </TouchableOpacity>
+          </>
         )}
       </View>
     </View>
@@ -320,6 +386,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 10,
+    marginHorizontal: 15, // Add some space between buttons
   },
   phoneButtonText: {
     color: "#fff",

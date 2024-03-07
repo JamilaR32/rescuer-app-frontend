@@ -20,8 +20,18 @@ const HelperHistory = () => {
   // }
 
   return (
-    <SafeAreaView>
-      <ScrollView>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#f9f4ef" }}>
+      <Text
+        style={{
+          fontSize: 29,
+          paddingLeft: 20,
+          paddingTop: 20,
+          fontWeight: "600",
+        }}
+      >
+        History
+      </Text>
+      <ScrollView style={{ padding: 14, backgroundColor: "#f9f4ef" }}>
         {data?.map((request, index) => (
           <View key={index} style={styles.card}>
             <Text style={styles.title}>Case: {request.case}</Text>
@@ -44,7 +54,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   card: {
-    backgroundColor: "#fff",
+    backgroundColor: "#eaddcf",
     borderRadius: 8,
     padding: 15,
     marginBottom: 10,

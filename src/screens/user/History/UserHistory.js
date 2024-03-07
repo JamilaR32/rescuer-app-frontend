@@ -15,7 +15,17 @@ const UserHistory = () => {
   );
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#f9f4ef" }}>
+      <Text
+        style={{
+          fontSize: 29,
+          paddingLeft: 20,
+          paddingTop: 20,
+          fontWeight: "600",
+        }}
+      >
+        History
+      </Text>
       <ScrollView style={{ padding: 14, backgroundColor: "#f9f4ef" }}>
         {filteredRequests?.map((request, index) => (
           <View key={index} style={styles.card}>

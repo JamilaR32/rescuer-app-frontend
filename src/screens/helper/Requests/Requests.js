@@ -106,23 +106,58 @@ const Requests = () => {
       .catch((err) => console.error("An error occurred", err));
   };
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView
+      style={(styles.container, { backgroundColor: "#f9f4ef", flex: 1 })}
+    >
+      <Text
+        style={{
+          fontSize: 29,
+          paddingLeft: 20,
+          paddingTop: 20,
+          fontWeight: "600",
+        }}
+      >
+        Incoming Requests
+      </Text>
       <ScrollView
+        style={{ padding: 14, backgroundColor: "#f9f4ef", flex: 1 }}
         refreshControl={
           <RefreshControl refreshing={isLoading} onRefresh={refetch} />
         }
       >
+        {/* key={request._id} style={styles.card}> */}
         {data
           ?.filter((request) => request.status !== "close")
           .map((request) => (
             <View key={request._id} style={styles.card}>
               <Text style={styles.title}>Case: {request.case}</Text>
-              <Text>Status: {request.status}</Text>
-              <Text>Location: {request.location.coordinates.join(", ")}</Text>
-
-              <Text>User: {request.user.fullName}</Text>
-              <Text>
-                Created At: {new Date(request.createdAt).toLocaleString()}
+              <Text style={styles.subtitle}>
+                Status:
+                <Text style={{ fontWeight: "normal" }}> {request.status} </Text>
+              </Text>
+              <Text style={styles.subtitle}>
+                Location:{" "}
+                <Text style={{ fontWeight: "normal" }}>
+                  {request.location.coordinates.join(", ")}
+                </Text>
+              </Text>
+              <Text style={styles.subtitle}>
+                User:
+                <Text style={{ fontWeight: "normal" }}>
+                  {request.user?.fullName}
+                </Text>
+              </Text>
+              <Text style={styles.subtitle}>
+                Assigned helper:
+                <Text style={{ fontWeight: "normal" }}>
+                  {request.helper?.user?.fullName ?? " Still not assigned"}
+                </Text>
+              </Text>
+              <Text style={styles.subtitle}>
+                Created At:{" "}
+                <Text style={{ fontWeight: "normal" }}>
+                  {new Date(request.createdAt).toLocaleString()}
+                </Text>
               </Text>
               {request.status === "open" &&
                 (location ? (
@@ -184,7 +219,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   card: {
-    backgroundColor: "#fff",
+    backgroundColor: "#eaddcf",
     borderRadius: 8,
     padding: 15,
     marginBottom: 10,

@@ -23,7 +23,10 @@ const acceptRequest = async (_id, lat, lon) => {
   const res = await instance.put(`/requests/${_id}`, { lat, lon });
   return res.data;
 };
-
+const deleteRequest = async (_id) => {
+  const res = await instance.delete(`/requests/${_id}`);
+  return res.data;
+};
 const checkRequest = async () => {
   const res = await instance.get("/requests/getIfIHaveRequest");
   return res.data;
@@ -45,4 +48,5 @@ export {
   checkRequest,
   cancelRequest,
   closeRequest,
+  deleteRequest,
 };
