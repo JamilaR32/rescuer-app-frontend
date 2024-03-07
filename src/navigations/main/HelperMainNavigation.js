@@ -6,7 +6,11 @@ import HelperHistoryNavigation from "../helper/HelperHistoryNavigation";
 import HelperHomeNavigation from "../helper/HelperHomeNavigation";
 import HelperProfileNavigation from "../helper/HelperProfileNavigation";
 import HelperRequestsNavigation from "../helper/HelperRequestsNavigation";
-import { MaterialCommunityIcons, Octicons } from "@expo/vector-icons";
+import {
+  MaterialCommunityIcons,
+  MaterialIcons,
+  Octicons,
+} from "@expo/vector-icons";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 
 // const Tab = createBottomTabNavigator();
@@ -26,7 +30,7 @@ const HelperMainNavigation = () => {
       }}
       screenOptions={{ headerShown: false }}
     >
-      <Tab.Screen
+      {/* <Tab.Screen
         name={ROUTES.HELPER.HOME_NAVIGATION.INDEX}
         component={HelperHomeNavigation}
         options={{
@@ -36,6 +40,21 @@ const HelperMainNavigation = () => {
             <MaterialCommunityIcons name="home" size={24} color="black" />
           ),
         }}
+      /> */}
+      <Tab.Screen
+        name={ROUTES.HELPER.HOME_NAVIGATION.INDEX}
+        component={HelperHomeNavigation}
+        options={{
+          tabBarShowLabel: false,
+          title: "Home",
+          tabBarIcon: ({ focused }) => (
+            <MaterialIcons
+              name="sos"
+              size={24}
+              color={focused ? "white" : "black"}
+            />
+          ),
+        }}
       />
       <Tab.Screen
         name={ROUTES.HELPER.REQUESTS_NAVIGATION.INDEX}
@@ -43,23 +62,28 @@ const HelperMainNavigation = () => {
         options={{
           tabBarShowLabel: false,
           title: "Requests",
-          tabBarIcon: () => (
+          tabBarIcon: ({ focused }) => (
             <MaterialCommunityIcons
               name="message-alert-outline"
               size={24}
-              color="black"
+              color={focused ? "white" : "black"}
             />
           ),
         }}
       />
+
       <Tab.Screen
         name={ROUTES.HELPER.HISTORY_NAVIGATION.INDEX}
         component={HelperHistoryNavigation}
         options={{
           tabBarShowLabel: false,
           title: "History",
-          tabBarIcon: () => (
-            <MaterialCommunityIcons name="history" size={24} color="black" />
+          tabBarIcon: ({ focused }) => (
+            <MaterialCommunityIcons
+              name="history"
+              size={24}
+              color={focused ? "white" : "black"}
+            />
           ),
         }}
       />
@@ -70,8 +94,12 @@ const HelperMainNavigation = () => {
         options={{
           tabBarShowLabel: false,
           title: "Profile",
-          tabBarIcon: () => (
-            <MaterialCommunityIcons name="account" size={24} color="black" />
+          tabBarIcon: ({ focused }) => (
+            <MaterialCommunityIcons
+              name="account"
+              size={24}
+              color={focused ? "white" : "black"}
+            />
           ),
         }}
       />

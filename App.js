@@ -19,7 +19,7 @@ import * as Notifications from "expo-notifications";
 import { Platform } from "react-native";
 import { updateToken } from "./src/api/notification";
 import { LogBox } from "react-native";
-LogBox.ignoreLogs(["Warning: ..."]);
+LogBox.ignoreAllLogs(); //Ignore all log notifications
 
 export default function App() {
   const [user, setUser] = useState(false);
